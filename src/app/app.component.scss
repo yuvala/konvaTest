@@ -1,0 +1,20 @@
+// body {
+//     background: green;
+// }
+
+// ko-stage{
+//     canvas {
+//         border:1px solid #000000;
+//     }
+// }
+.navbar {
+    padding: 10px;
+    border: 1px red solid;
+    ul {
+        display: inline;
+        min-width: 696px;
+	    list-style: none;
+	    padding-top: 20px;
+    }
+    li {display: inline;padding: 5px}
+}

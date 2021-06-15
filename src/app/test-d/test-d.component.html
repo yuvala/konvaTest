@@ -1,0 +1,13 @@
+<section>
+    <ko-stage #stage [config]="configStage">
+        <ko-layer #layer>
+            <ko-regular-polygon
+              #hexagon
+              [config]="configItem"
+              (mouseout)="handleMouseOut($event)"
+              (mousemove)="handleMouseMove($event)"
+            ></ko-regular-polygon>
+        </ko-layer>
+    </ko-stage>
+    <br>
+</section>
