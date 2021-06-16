@@ -13,9 +13,9 @@ let ng: any;
 })
  
 export class TestEComponent implements OnInit {
-  @ViewChild('stage') stage: KonvaComponent;
-  @ViewChild('layer') layer: KonvaComponent;
-  @ViewChild('dragLayer') dragLayer: KonvaComponent;
+  @ViewChild('stage') stage!: KonvaComponent;
+  @ViewChild('layer') layer!: KonvaComponent;
+  @ViewChild('dragLayer') dragLayer!: KonvaComponent;
  
   public width = 800;
   public height = 200;

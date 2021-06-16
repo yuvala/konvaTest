@@ -16,9 +16,9 @@ import { map, startWith, pairwise, scan, tap } from "rxjs/operators";
   styleUrls: ['./test-b.component.scss']
 })
 export class TestBComponent implements AfterViewInit {
-  @ViewChild("stage") stage: KonvaComponent;
-  @ViewChild("circle1") circle1: KonvaComponent;
-  @ViewChild("container") container: ElementRef;
+  @ViewChild("stage") stage!: KonvaComponent;
+  @ViewChild("circle1") circle1!: KonvaComponent;
+  @ViewChild("container") container!: ElementRef;
 
   public configCircle1: Observable<any> = of({
     x: 200,

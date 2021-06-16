@@ -10,9 +10,9 @@ declare const Konva: any;
 })
  
 export class TestDComponent implements AfterViewInit {
-  @ViewChild('stage') stage: KonvaComponent;
-  @ViewChild('layer') layer: KonvaComponent;
-  @ViewChild('hexagon') hexagon: KonvaComponent;
+  @ViewChild('stage') stage!: KonvaComponent;
+  @ViewChild('layer') layer!: KonvaComponent;
+  @ViewChild('hexagon') hexagon!: KonvaComponent;
  
   public configStage: Observable<any> = of({
     width: 400,

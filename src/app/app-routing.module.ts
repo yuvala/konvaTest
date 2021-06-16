@@ -5,8 +5,10 @@ import { TestBComponent } from './test-b/test-b.component';
 import { TestCComponent } from './test-c/test-c.component';
 import { TestDComponent } from './test-d/test-d.component';
 import { TestEComponent } from './test-e/test-e.component';
+import { ViewerComponent } from './viewer/viewer.component';
 
 const routes: Routes = [
+  { path: 'viewer', component: ViewerComponent },
   { path: 'test-a', component: TestAComponent },
   { path: 'test-b', component: TestBComponent },
   { path: 'test-c', component: TestCComponent },

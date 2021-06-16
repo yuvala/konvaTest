@@ -9,9 +9,9 @@ import { KonvaComponent } from 'ng2-konva';
   styleUrls: ['./test-c.component.scss']
 })
 export class TestCComponent implements OnInit {
-  @ViewChild('stage') stage: KonvaComponent;
-  @ViewChild('layer') layer: KonvaComponent;
-  @ViewChild('text') text: KonvaComponent;
+  @ViewChild('stage') stage!: KonvaComponent;
+  @ViewChild('layer') layer!: KonvaComponent;
+  @ViewChild('text') text!: KonvaComponent;
 
   public configStage: Observable<any> = of({
     width: 300,
