@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import Konva from 'konva';
-import { KonvaModule } from 'ng2-konva';
+import { fromEvent } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { eLayers } from './interfaces';
 import { ShapeService } from './tools/shape.service';
 import { ViewerService } from './viewer-service.service';
@@ -10,9 +12,9 @@ import { ViewerService } from './viewer-service.service';
   templateUrl: './viewer.component.html',
   styleUrls: ['./viewer.component.scss']
 })
-export class ViewerComponent implements OnInit {
+export class ViewerComponent implements AfterViewInit {
+  @ViewChild('container', { static: true }) container!: ElementRef;
   stage!: Konva.Stage;
-
   layers: { [k: string]: any } = {};
   layerKeys = eLayers;
   constructor(
@@ -20,31 +22,58 @@ export class ViewerComponent implements OnInit {
     private ShapeService: ShapeService
   ) { }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     let width = window.innerWidth * 0.9;
     let height = window.innerHeight;
-
     this.service.getPlan().subscribe(planObject => {
-      const layerKeys = Object.keys(planObject.stage.layers);
+      const container = this.container.nativeElement;
+      height = height * 0.7;;
+      width = container.offsetWidth;
+
+
+
       this.stage = new Konva.Stage({
         container: planObject.name,
+
         width: width,
         height: height,
-        draggable: true,
+        draggable: false,
+      });
+      Object.keys(planObject.stage.layers || {})
+        // .map((key, v) => {
+        //   debugger;
+        //   return key;
+
+        // })
+        .forEach(key => {
+          const layerConfig = planObject.stage.layers[key];
+          this.layers[layerConfig.name] = new Konva.Layer(layerConfig);
+          this.stage.add(this.layers[layerConfig.name]);
+          if (layerConfig.isTransformer) {
+            const tr = new Konva.Transformer();
+            this.layers[layerConfig.name].add(tr);
+            // // by default select all shapes
+            // tr.nodes([rect1, rect2]);
+          }
+        });
+
+
+      this.stage.on('click', function (e) {
+        if (e.target === this) {
+          console.log('click on stage: no object');
+          return;
+        }
+        // e.target is a clicked Konva.Shape or current stage if you clicked on empty space
+        console.log(`Clicked on:  '${e.target.name()}'`);
+        console.log('DATA:', e.target);
+        console.log(`Parent: ${e.target.parent?.getType()}, Parent Name: ${e.target.parent?.attrs.id}`);
+        console.log(
+          'usual click on ' + JSON.stringify(this.getPointerPosition())
+        );
       });
 
-
-
-      (layerKeys || []).forEach(key => {
-        const l = planObject.stage.layers[key];
-        this.layers[l.name] = new Konva.Layer({ l, id: l.name });
-        this.stage.add(this.layers[l.name]);
-
-      });
-
+      //test
       this.initCircle();
-
-
       //    var json = this.stage.toJSON();
 
       //   console.log(json);
@@ -60,10 +89,25 @@ export class ViewerComponent implements OnInit {
       radius: 70,
       fill: 'red',
       stroke: 'black',
-      strokeWidth: 4
+      strokeWidth: 4,
+      drggable: true,
+      name: 'moshe-circle'
     };
+
+
+
     let circle = new Konva.Circle(conf);
+
+    var transformer = new Konva.Transformer({
+      nodes: [circle],
+      rotateAnchorOffset: 60,
+      enabledAnchors: ['top-left', 'top-right', 'bottom-left', 'bottom-right']
+    });
+    // layer.add(transformer)
     this.layers[eLayers[eLayers.shapesLayer]].add(circle);
+    this.layers[eLayers[eLayers.shapesLayer]].add(transformer);
+
+
   }
   addToShapeLayer(): void {
     this.stage.getLayer();
@@ -94,6 +138,16 @@ export class ViewerComponent implements OnInit {
     let circle = new Konva.Circle(conf);
     this.layers['segmentAndTemplateLayer'].add(this.ShapeService.rectangle());
     //   this.stage.getLayers()[0].add(this.ShapeService.rectangle());
-    debugger;
+    //  debugger;
   }
+
+  // private size = fromEvent(window, 'resize').pipe(
+  //   map(() => {
+  //     const container = this.container.nativeElement;
+  //     return {
+  //       height: container.offsetHeight,
+  //       width: container.offsetWidth
+  //     };
+  //   })
+  // );
 }

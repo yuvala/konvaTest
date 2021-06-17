@@ -38,4 +38,5 @@ export class ShapeService {
             draggable: true
         });
     }
+    
 }

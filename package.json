@@ -22,6 +22,7 @@
     "hammerjs": "^2.0.8",
     "konva": "^8.0.4",
     "ng2-konva": "^6.0.0",
+    "primeflex": "^2.0.0",
     "primeicons": "^4.0.0",
     "primeng": "^10.0.3",
     "rxjs": "~6.6.0",

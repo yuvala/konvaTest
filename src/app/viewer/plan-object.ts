@@ -9,7 +9,7 @@ export class PlanObject implements IPlan {
             name: 'aba',
             layers: {
                 [eLayers[eLayers.imgLayer]]: { name: 'imgLayer' },
-                [eLayers[eLayers.shapesLayer]]: { name: 'shapesLayer' },
+                [eLayers[eLayers.shapesLayer]]: { name: 'shapesLayer', isTransformer: true },
                 [eLayers[eLayers.segmentAndTemplateLayer]]: { name: 'segmentAndTemplateLayer' },
                 [eLayers[eLayers.wlLayer]]: { name: 'wlLayer' }
             },

@@ -14,6 +14,7 @@ export interface ILayers {
 }
 export interface ILayer {
     name: string,
+    isTransformer?:boolean
 }
 
 export enum eLayers {
