@@ -14,12 +14,20 @@ export interface ILayers {
 }
 export interface ILayer {
     name: string,
-    isTransformer?:boolean
+    isTransformer?: boolean
 }
 
 export enum eLayers {
     imgLayer,
     shapesLayer,
     segmentAndTemplateLayer,
-    wlLayer
+    wlLayer  //( window level)
+}
+
+export enum eShapes {
+    circle = 'circle',
+    line = 'line',
+    rectangle = 'rectangle',
+    radialGradPentagon = 'radialGradPentagon',
+
 }
