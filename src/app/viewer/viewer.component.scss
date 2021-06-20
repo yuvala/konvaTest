@@ -1,0 +1,13 @@
+.container-panel {
+    border: 1px black solid;
+    .main-panel {
+       // background-color: green;
+        width: 100%;
+    }
+    .side-panel {
+        font-size: 12px;
+        background-color: green;
+        color: white;
+        min-width: 400px;
+    }
+}

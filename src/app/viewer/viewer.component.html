@@ -1,0 +1,32 @@
+<div class="p-d-flex p-flex-column">
+    <div>
+        <button (click)="addToShapeLayer(shapeType['rectangle'])"> add rectangle To  ShapeLayer</button>
+        <button (click)="addToShapeLayer(shapeType.radialGradPentagon)"> add radialGradPentagon To  ShapeLayer</button>
+        <button (click)="addToSegmentAndTemplateLayer()"> add segmentLayer</button>
+    </div>
+    <div class="container-panel p-d-flex p-flex-row">
+        <div #container class="main-panel" id="container"></div>
+        <!--
+
+            
+        <div class="side-panel">
+            <div *ngIf="stage; then showStage else blockSatge">
+                {{stage |   json}} 
+
+            </div>
+
+
+            <ng-template #blockSatge>Content to render when condition is false.</ng-template>
+            <ng-template #showStage let-s>
+                 {{stage |   json}} 
+                <div *ngFor="let child in s.children | async; index as i">
+                    {{child}}
+                </div>  
+                 <div *ngFor="let item of stage | keyvalue">
+                    Key: <b>{{item.key}}</b> and Value: <b>{{item.value|json}}</b>
+                </div> 
+            </ng-template>
+        </div>git add 
+    -->
+
+    </div>

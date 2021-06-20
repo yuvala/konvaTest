@@ -1,0 +1,11 @@
+<!-- The content below is only a placeholder and can be replaced. -->
+<div class="container" #container >
+    <ko-stage [config]="configStage" #stage class="stage">
+        <ko-layer *ngFor="let run of [0,1,2,3]">
+            <ko-image></ko-image>
+            <ko-circle [config]="configCircle1" #circle1></ko-circle>
+            <ko-circle [config]="configCircle2" #konva></ko-circle>
+        </ko-layer>
+       
+    </ko-stage>
+</div>
