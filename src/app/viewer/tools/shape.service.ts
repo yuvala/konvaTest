@@ -11,7 +11,7 @@ export class ShapeService {
     // public getShape(shapeType: any): Function {
     //     return this[shapeType.type as string]();
     // }
-    color = ['#9b0404','#df4b26'];
+    color = ['#9b0404', '#df4b26'];
     circle() {
         return new Konva.Circle({
             x: 100,
@@ -35,17 +35,17 @@ export class ShapeService {
         });
     }
     rectangle(type: any) {
-        let ectObj = new Konva.Rect({
-            x: 20,
-            y: 20,
+        let rectObj = new Konva.Rect({
+            x: type.x ? type.x : 20,
+            y: type.y ? type.y : 20,
             width: 100,
             height: 50,
             fill: this.color[0],
             draggable: true,
             name: 'rect'
         });
-        this.setEvents(ectObj);
-        return ectObj;
+        this.setEvents(rectObj);
+        return rectObj;
     }
 
 
@@ -70,7 +70,7 @@ export class ShapeService {
 
         return obj;
     }
-    
+
     private setEvents(shapeObj: Shape): void {
         shapeObj.on('mouseover touchstart', (e) => {
             shapeObj.fill(this.color[1]);
@@ -80,7 +80,7 @@ export class ShapeService {
             shapeObj.fill(this.color[0]);
         });
 
-        
+
 
     }
 }

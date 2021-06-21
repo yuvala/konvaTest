@@ -3,7 +3,8 @@ import Konva from 'konva';
 import { Rect } from 'konva/lib/shapes/Rect';
 import { fromEvent } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { eLayers, eShapes } from './interfaces';
+import { eComplex, eLayers, eShapes } from './interfaces';
+import { ComplexService } from './tools/complex.service';
 import { ShapeService } from './tools/shape.service';
 import { ViewerService } from './viewer-service.service';
 
@@ -15,6 +16,7 @@ import { ViewerService } from './viewer-service.service';
 export class ViewerComponent implements AfterViewInit {
   @ViewChild('container', { static: true }) container!: ElementRef;
   public shapeType = eShapes;
+  public complexType = eComplex;
 
   stage!: Konva.Stage;
   layers: { [k: string]: any } = {};
@@ -29,7 +31,8 @@ export class ViewerComponent implements AfterViewInit {
 
   constructor(
     private service: ViewerService,
-    private ShapeService: ShapeService
+    private ShapeService: ShapeService,
+    private ComplexService: ComplexService
   ) { }
 
   ngAfterViewInit(): void {
@@ -142,12 +145,9 @@ export class ViewerComponent implements AfterViewInit {
     // clicks should select/deselect shapes
     this.stage.on('click tap', (e) => {
       if (this.clipBoard) {
-        console.log('yyy', this.clipBoard);
         this.insertFromClipboard();
-      } else {
-        console.log('xxx', this.clipBoard);
-
-      }
+        return;
+      } 
       // if we are selecting with rect, do nothing
       if (this.selectionRectangle.visible()) {
         return;
@@ -239,9 +239,12 @@ export class ViewerComponent implements AfterViewInit {
 
   insertFromClipboard() {
     this.clipBoard.setPosition(this.stage.getPointerPosition());
-    this.layers['shapesLayer']
-      .add(this.clipBoard);
+    this.layers['shapesLayer'].add(this.clipBoard);
     this.clipBoard = undefined;
   }
 
+  addComplex(type: eComplex) {
+    let _shapeObj = { type: type };
+    this.clipBoard = this.ComplexService[_shapeObj.type](_shapeObj);
+  }
 }

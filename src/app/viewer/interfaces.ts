@@ -30,5 +30,11 @@ export enum eShapes {
     line = 'line',
     rectangle = 'rectangle',
     radialGradPentagon = 'radialGradPentagon',
+   
+
+}
+export enum eComplex {
+    
+    complex = 'complex',
 
 }
