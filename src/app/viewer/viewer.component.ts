@@ -80,6 +80,7 @@ export class ViewerComponent implements AfterViewInit {
         }
 
         // do we pressed shift or ctrl?
+        
         const metaPressed = e.evt.shiftKey || e.evt.ctrlKey || e.evt.metaKey;
         const isSelected = this.tr.nodes().indexOf(e.target) >= 0;
 
