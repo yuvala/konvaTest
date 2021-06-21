@@ -3,8 +3,7 @@ import Konva from 'konva';
 import { Rect } from 'konva/lib/shapes/Rect';
 import { fromEvent } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-import { eLayers, eShapes } from './interfaces';
+import { eLayers, eShapes } from './interfaces'; 
 import { ShapeService } from './tools/shape.service';
 import { ViewerService } from './viewer-service.service';
 
@@ -16,7 +15,7 @@ import { ViewerService } from './viewer-service.service';
 export class ViewerComponent implements AfterViewInit {
   @ViewChild('container', { static: true }) container!: ElementRef;
   public shapeType = eShapes;
-  _ng = this;
+   
   stage!: Konva.Stage;
   layers: { [k: string]: any } = {};
   layerKeys = eLayers;
@@ -66,7 +65,7 @@ export class ViewerComponent implements AfterViewInit {
         if (this.selectionRectangle.visible()) {
           return;
         }
-        
+
 
         // if click on empty area - remove all selections
         if (e.target === this.stage) {
@@ -80,7 +79,7 @@ export class ViewerComponent implements AfterViewInit {
         }
 
         // do we pressed shift or ctrl?
-        
+
         const metaPressed = e.evt.shiftKey || e.evt.ctrlKey || e.evt.metaKey;
         const isSelected = this.tr.nodes().indexOf(e.target) >= 0;
 
@@ -103,10 +102,7 @@ export class ViewerComponent implements AfterViewInit {
       });
 
       this.stage.on('mousedown touchstart', (e: any) => {
-        // if (e.target === this.stage) {
-        //   console.log('click on stage: no object');
-        //   return;
-        // }
+  
         // e.target is a clicked Konva.Shape or current stage if you clicked on empty space
         // console.log(`Clicked on:  '${e.target.name()}'`);
         // console.log('DATA:', e.target);
@@ -114,16 +110,21 @@ export class ViewerComponent implements AfterViewInit {
         // console.log(
         //   'usual click on ' + JSON.stringify(this.stage.getPointerPosition())
         // );
+
+        
+        if (e.target !== this.stage) {
+          return;
+        }
         this.x1 = this.stage.getPointerPosition()?.x as number;
         this.y1 = this.stage.getPointerPosition()?.y as number;
         this.x2 = this.stage.getPointerPosition()?.x as number;
         this.y2 = this.stage.getPointerPosition()?.y as number;
-        //if (e.target.getParent().getName() === eLayers[eLayers.shapesLayer]) {
-          this.selectionRectangle.visible(true);
-          this.selectionRectangle.width(0);
-          this.selectionRectangle.height(0);
+         
+        this.selectionRectangle.visible(true);
+        this.selectionRectangle.width(0);
+        this.selectionRectangle.height(0);
 
-       // }
+        
       });//.bind(this.stage);
 
       this.stage.on('mousemove touchmove', () => {
@@ -149,18 +150,21 @@ export class ViewerComponent implements AfterViewInit {
         }
         // update visibility in timeout, so we can check it in click event
         setTimeout(() => {
-           this.selectionRectangle.visible(false);
+          this.selectionRectangle.visible(false);
         });
-        
-        const shapes = this.stage.find('.rect');
-        const box = this.selectionRectangle.getClientRect();
-        const selected = shapes.filter((shape) =>
-          Konva.Util.haveIntersection(box, shape.getClientRect())
+
+        let shapes = this.stage.find('.rect');
+        let box = this.selectionRectangle.getClientRect();
+        let selected = shapes.filter((shape) => {
+          console.log('box, shape.getClientRect():', box, shape.getClientRect());
+          Konva.Util.haveIntersection(box, shape.getClientRect());
+        }
         );
+        console.log('selected:', selected);
         this.tr.nodes(selected);
       });
       //test
-     // this.initCircle();
+      // this.initCircle();
       //    var json = this.stage.toJSON();
       //   console.log(json);
     });

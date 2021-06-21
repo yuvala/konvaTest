@@ -41,10 +41,8 @@ export class ShapeService {
             width: 100,
             height: 50,
             fill: 'green',
-          //  stroke: 'black',
-          //  strokeWidth: 4,
             draggable: true,
-            name:'rect'// type
+            name: 'rect'
         });
         this.setEvents(ectObj);
         return ectObj;
@@ -62,10 +60,10 @@ export class ShapeService {
             fillRadialGradientEndPoint: { x: 0, y: 0 },
             fillRadialGradientEndRadius: 70,
             fillRadialGradientColorStops: [0, 'red', 0.5, 'yellow', 1, 'blue'],
-        //    stroke: 'black',
-        //    strokeWidth: 4,
+            //    stroke: 'black',
+            //    strokeWidth: 4,
             draggable: true,
-            name:'rect'
+            name: 'rect'
         });
 
         this.setEvents(obj);
@@ -73,29 +71,29 @@ export class ShapeService {
         return obj;
     }
     private setEvents(shapeObj: Shape): void {
-        shapeObj.on('mouseover touchstart', function () {
-            this.fill('blue');
+        shapeObj.on('mouseover touchstart', (e) => {
+            shapeObj.fill('blue');
         });
 
-        shapeObj.on('mouseout touchend', function () {
-            this.fill('red');
+        shapeObj.on('mouseout touchend', (e) => {
+            shapeObj.fill('red');
         });
 
-        shapeObj.on('mousedown touchstart', (e) => {
-            // do nothing if we mousedown on any shape
-            //    debugger;
-            // if (e.target !== stage) {
-            //   return;
-            // }
-            // x1 = stage.getPointerPosition().x;
-            // y1 = stage.getPointerPosition().y;
-            // x2 = stage.getPointerPosition().x;
-            // y2 = stage.getPointerPosition().y;
+        // shapeObj.on('mousedown touchstart', (e) => {
+        //     // do nothing if we mousedown on any shape
+        //     //    debugger;
+        //     // if (e.target !== stage) {
+        //     //   return;
+        //     // }
+        //     // x1 = stage.getPointerPosition().x;
+        //     // y1 = stage.getPointerPosition().y;
+        //     // x2 = stage.getPointerPosition().x;
+        //     // y2 = stage.getPointerPosition().y;
 
-            // selectionRectangle.visible(true);
-            // selectionRectangle.width(0);
-            // selectionRectangle.height(0);
-        });
+        //     // selectionRectangle.visible(true);
+        //     // selectionRectangle.width(0);
+        //     // selectionRectangle.height(0);
+        // });
 
     }
 }
