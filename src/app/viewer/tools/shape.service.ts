@@ -11,7 +11,7 @@ export class ShapeService {
     // public getShape(shapeType: any): Function {
     //     return this[shapeType.type as string]();
     // }
-
+    color = ['#9b0404','#df4b26'];
     circle() {
         return new Konva.Circle({
             x: 100,
@@ -40,7 +40,7 @@ export class ShapeService {
             y: 20,
             width: 100,
             height: 50,
-            fill: 'green',
+            fill: this.color[0],
             draggable: true,
             name: 'rect'
         });
@@ -70,30 +70,17 @@ export class ShapeService {
 
         return obj;
     }
+    
     private setEvents(shapeObj: Shape): void {
         shapeObj.on('mouseover touchstart', (e) => {
-            shapeObj.fill('blue');
+            shapeObj.fill(this.color[1]);
         });
 
         shapeObj.on('mouseout touchend', (e) => {
-            shapeObj.fill('red');
+            shapeObj.fill(this.color[0]);
         });
 
-        // shapeObj.on('mousedown touchstart', (e) => {
-        //     // do nothing if we mousedown on any shape
-        //     //    debugger;
-        //     // if (e.target !== stage) {
-        //     //   return;
-        //     // }
-        //     // x1 = stage.getPointerPosition().x;
-        //     // y1 = stage.getPointerPosition().y;
-        //     // x2 = stage.getPointerPosition().x;
-        //     // y2 = stage.getPointerPosition().y;
-
-        //     // selectionRectangle.visible(true);
-        //     // selectionRectangle.width(0);
-        //     // selectionRectangle.height(0);
-        // });
+        
 
     }
 }

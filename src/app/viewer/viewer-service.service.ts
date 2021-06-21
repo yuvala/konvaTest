@@ -6,6 +6,7 @@ import { PlanObject } from './plan-object';
 @Injectable({
   providedIn: 'root'
 })
+
 export class ViewerService {
 
   private plan: IPlan | undefined;

@@ -6,9 +6,9 @@ export class PlanObject implements IPlan {
     constructor() {
         this.name = 'container';
         this.stage = {
-            name: 'aba',
+            name: 'stageName',
             layers: {
-                [eLayers[eLayers.imgLayer]]: { name: 'imgLayer' },
+                [eLayers[eLayers.imgLayer]]: { name: 'imgLayer', image: 'darth-vader.jpg' },
                 [eLayers[eLayers.shapesLayer]]: { name: 'shapesLayer', isTransformer: true },
                 [eLayers[eLayers.segmentAndTemplateLayer]]: { name: 'segmentAndTemplateLayer' },
                 [eLayers[eLayers.wlLayer]]: { name: 'wlLayer' }
