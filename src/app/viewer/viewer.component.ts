@@ -89,12 +89,8 @@ export class ViewerComponent implements AfterViewInit {
             imageObj.src = `assets/${layerConfig.image}`;
           }
         });
-
       this.initStageEvents();
-
-
     });
-
   }
 
   private initStageEvents(): void {
@@ -107,9 +103,9 @@ export class ViewerComponent implements AfterViewInit {
       //   'usual click on ' + JSON.stringify(this.stage.getPointerPosition())
       // );
 
-      console.log('e.target !== this.stage ::', e.target !== this.stage);
-      console.log(' e.target.getLayer().attrs.name !== \'imgLayer\'::',
-        e.target === this.stage && e.target.getLayer().attrs.name !== 'imgLayer');
+      // console.log('e.target !== this.stage ::', e.target !== this.stage);
+      // console.log(' e.target.getLayer().attrs.name !== \'imgLayer\'::',
+      //   e.target === this.stage && e.target.getLayer().attrs.name !== 'imgLayer');
 
       //   if (e.target !== this.stage ||
       //     e.target === this.stage && e.target.getLayer().attrs.name !== 'imgLayer'
@@ -199,7 +195,7 @@ export class ViewerComponent implements AfterViewInit {
       });
 
 
-      let shapes = this.layers.shapesLayer.find('.rect');
+      let shapes = this.layers.shapesLayer.find('.simpleShape');
       let box = this.selectionRectangle.getClientRect();
       let selected = shapes.filter((shape: any) => {
         return Konva.Util.haveIntersection(box, shape.getClientRect());
@@ -209,11 +205,10 @@ export class ViewerComponent implements AfterViewInit {
     });
   }
 
-
-
-  addToSegmentAndTemplateLayer(): void {
-    this.layers['segmentAndTemplateLayer']
-      .add(this.ShapeService.rectangle('rect'));
+  addToSegmentAndTemplateLayer(type: eShapes): void {
+    this.addShape(type);
+    this.insertFromClipboard(false, eLayers.segmentAndTemplateLayer);
+    
   }
 
   // private size = fromEvent(window, 'resize').pipe(
@@ -230,25 +225,19 @@ export class ViewerComponent implements AfterViewInit {
   addToShapeLayer(type: eShapes): void {
     this.addShape(type);
     this.insertFromClipboard();
-    // let conf = { 
-    //   type: type,
-    //   origin:'primitive'
-    // };
-    // this.layers['shapesLayer']
-    //   .add(this.ShapeService[conf.type](conf));
   }
 
   addShape(type: eShapes) {
-    let conf = { type: type, origin: 'primitive', initDefaultPos: true };
+    let conf = { type: type, origin: 'primitive', initDefaultPos: true, draggable: true };
     this.clipBoard = this.ShapeService[conf.type](conf);
   }
 
-  insertFromClipboard(initDefaultPos?: boolean) {
-    console.log('initDefaultPos:::::', initDefaultPos);
+  insertFromClipboard(initDefaultPos?: boolean, toThisLayer: eLayers = eLayers.shapesLayer) {
+    console.log('initDefaultPos:::::', initDefaultPos, eLayers[toThisLayer]);
     if (initDefaultPos) {
       this.clipBoard.setPosition(this.stage.getPointerPosition());
     }
-    this.layers['shapesLayer'].add(this.clipBoard);
+    this.layers[eLayers[toThisLayer]].add(this.clipBoard);
     this.clipBoard = undefined;
   }
 

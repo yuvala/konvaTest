@@ -29,10 +29,14 @@ export enum eShapes {
     circle = 'circle',
     line = 'line',
     rectangle = 'rectangle',
-    radialGradPentagon = 'radialGradPentagon',
-   
+    pentagon = 'pentagon',
+
 
 }
-export enum eComplex {  
+export enum eComplex {
     complex = 'complex',
+}
+export interface iPos {
+    x: number;
+    y: number;
 }

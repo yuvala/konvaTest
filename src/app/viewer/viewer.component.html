@@ -1,16 +1,21 @@
 <div class="p-d-flex p-flex-column">
     <div>
-        <button (click)="addToShapeLayer(shapeType['rectangle'])"> ShapeLayer: rectangle </button>
-        <button (click)="addToShapeLayer(shapeType.radialGradPentagon)"> ShapeLayer: Pentagon </button>
-        <button (click)="addShape(shapeType['rectangle'])"> ShapeLayer: rectangle </button>
-        <button (click)="addComplex(complexType['complex'])"> ShapeLayer: rectangle </button>
-        <!-- <button (click)="addToSegmentAndTemplateLayer()"> add segmentLayer</button> -->
+        <button (click)="addToShapeLayer(shapeType.rectangle)" title="auto add"> ShapeLayer: rectangle </button>
+        <button (click)="addToShapeLayer(shapeType.pentagon)" title="auto add"> ShapeLayer: Pentagon </button>
+        <button (click)="addToShapeLayer(shapeType.circle)" title="auto add"> ShapeLayer: Circle </button>
+    </div>
+    <div>
+        <button (click)="addShape(shapeType.rectangle)"> ShapeLayer: rectangle </button>
+        <button (click)="addShape(shapeType.pentagon)"> ShapeLayer: Pentagon </button>
+        <button (click)="addShape(shapeType.circle)"> ShapeLayer: Circle </button>
+    </div>
+    <div>
+        <button (click)="addComplex(complexType['complex'])"> complexTool: rectangle </button>
+        <button (click)="addToSegmentAndTemplateLayer(shapeType.rectangle)">SegmentLayer: rectangle</button>
     </div>
     <div class="container-panel p-d-flex p-flex-row">
         <div #container class="main-panel" id="container"></div>
-        <!--
-
-            
+        <!--           
         <div class="side-panel">
             <div *ngIf="stage; then showStage else blockSatge">
                 {{stage |   json}} 
@@ -29,6 +34,6 @@
                 </div> 
             </ng-template>
         </div>git add 
-    -->
+        -->
 
     </div>

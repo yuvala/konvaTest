@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import Konva from 'konva';
 import { Shape } from 'konva/lib/Shape';
 import { Rect } from 'konva/lib/shapes/Rect';
+import { iPos } from '../interfaces';
 @Injectable({
     providedIn: 'root'
 })
@@ -12,20 +13,24 @@ export class ShapeService {
     //     return this[shapeType.type as string]();
     // }
     color = ['#9b0404', '#df4b26'];
-    circle() {
-        return new Konva.Circle({
-            x: 100,
-            y: 100,
+
+
+    circle(type: any) {
+        let circleObj = new Konva.Circle({
+            x: type.x ? type.x : 70,
+            y: type.y ? type.y : 70,
             radius: 70,
-            fill: 'red',
-            stroke: 'black',
-            strokeWidth: 4,
-            draggable: true
+            opacity:0.8,
+            fill: this.color[0],
+            draggable: type.draggable ? type.draggable : false,
+            name: 'simpleShape'
         });
+        this.setEvents(circleObj);
+        return circleObj;
     }
 
     line(pos: any, mode: string = 'brush') {
-        return new Konva.Line({
+        let lineObjsect = new Konva.Line({
             stroke: '#df4b26',
             strokeWidth: 5,
             globalCompositeOperation:
@@ -33,6 +38,7 @@ export class ShapeService {
             points: [pos.x, pos.y],
             draggable: mode == 'brush'
         });
+        return lineObjsect;
     }
     rectangle(type: any) {
         let rectObj = new Konva.Rect({
@@ -41,33 +47,27 @@ export class ShapeService {
             width: 100,
             height: 50,
             fill: this.color[0],
+            opacity:0.8,
             draggable: type.draggable ? type.draggable : false,
-            name: 'rect'
+            name: 'simpleShape'
         });
         this.setEvents(rectObj);
         return rectObj;
     }
 
 
-    radialGradPentagon(type: any) {
+    pentagon(type: any) {
         let obj = new Konva.RegularPolygon({
-            x: 30,
-            y: 30,
+            x: type.x ? type.x : 70,
+            y: type.y ? type.y : 70,
             sides: 5,
             radius: 70,
-            fillRadialGradientStartPoint: { x: 0, y: 0 },
-            fillRadialGradientStartRadius: 0,
-            fillRadialGradientEndPoint: { x: 0, y: 0 },
-            fillRadialGradientEndRadius: 70,
-            fillRadialGradientColorStops: [0, 'red', 0.5, 'yellow', 1, 'blue'],
-            //    stroke: 'black',
-            //    strokeWidth: 4,
-            draggable: true,
-            name: 'rect'
+            opacity:0.8,
+            fill: this.color[0],
+            draggable: type.draggable ? type.draggable : false,
+            name: 'simpleShape'
         });
-
         this.setEvents(obj);
-
         return obj;
     }
 
@@ -79,8 +79,5 @@ export class ShapeService {
         shapeObj.on('mouseout touchend', (e) => {
             shapeObj.fill(this.color[0]);
         });
-
-
-
     }
 }
