@@ -33,8 +33,6 @@ export enum eShapes {
    
 
 }
-export enum eComplex {
-    
+export enum eComplex {  
     complex = 'complex',
-
 }

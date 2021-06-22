@@ -41,7 +41,7 @@ export class ShapeService {
             width: 100,
             height: 50,
             fill: this.color[0],
-            draggable: true,
+            draggable: type.draggable ? type.draggable : false,
             name: 'rect'
         });
         this.setEvents(rectObj);

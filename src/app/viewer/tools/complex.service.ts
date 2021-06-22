@@ -14,18 +14,25 @@ export class ComplexService {
     const group = new Konva.Group({
       x: 100,
       y: 100,
-      draggable: true,
-      visible: true,
+      // draggable: true,
+      // visible: true,
       name: 'complexGroup'
     });
 
     this.colors.forEach((k, i) => {
-      const obj = this.shapeService.rectangle({ type: 'rectangle', x: i * 30, y: i * 30 });
+      const obj = this.shapeService.rectangle({ 
+        type: 'rectangle', 
+        x: i * 30, 
+        y: i * 30 ,
+        draggable:false
+      });
       obj.fill(k);
       group.add(obj);
     });
     group.addName('moshe');
-    
+    group.draggable(true);
+    group.cache();
+
     return group;
   }
 }

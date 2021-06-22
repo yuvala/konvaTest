@@ -125,7 +125,7 @@ export class ViewerComponent implements AfterViewInit {
       this.selectionRectangle.visible(true);
       this.selectionRectangle.width(0);
       this.selectionRectangle.height(0);
-    });//.bind(this.stage);
+    });
 
     this.stage.on('mousemove touchmove', () => {
       // no nothing if we didn't start selection
@@ -145,9 +145,9 @@ export class ViewerComponent implements AfterViewInit {
     // clicks should select/deselect shapes
     this.stage.on('click tap', (e) => {
       if (this.clipBoard) {
-        this.insertFromClipboard();
+        this.insertFromClipboard(true);
         return;
-      } 
+      }
       // if we are selecting with rect, do nothing
       if (this.selectionRectangle.visible()) {
         return;
@@ -198,9 +198,10 @@ export class ViewerComponent implements AfterViewInit {
         this.selectionRectangle.visible(false);
       });
 
-      let shapes = this.stage.find('.rect');
+
+      let shapes = this.layers.shapesLayer.find('.rect');
       let box = this.selectionRectangle.getClientRect();
-      let selected = shapes.filter((shape) => {
+      let selected = shapes.filter((shape: any) => {
         return Konva.Util.haveIntersection(box, shape.getClientRect());
       });
       console.log('selected:', selected);
@@ -227,24 +228,32 @@ export class ViewerComponent implements AfterViewInit {
 
 
   addToShapeLayer(type: eShapes): void {
-    let _shapeObj = { type: type };
-    this.layers['shapesLayer']
-      .add(this.ShapeService[_shapeObj.type](_shapeObj));
+    this.addShape(type);
+    this.insertFromClipboard();
+    // let conf = { 
+    //   type: type,
+    //   origin:'primitive'
+    // };
+    // this.layers['shapesLayer']
+    //   .add(this.ShapeService[conf.type](conf));
   }
 
   addShape(type: eShapes) {
-    let _shapeObj = { type: type };
-    this.clipBoard = this.ShapeService[_shapeObj.type](_shapeObj);
+    let conf = { type: type, origin: 'primitive', initDefaultPos: true };
+    this.clipBoard = this.ShapeService[conf.type](conf);
   }
 
-  insertFromClipboard() {
-    this.clipBoard.setPosition(this.stage.getPointerPosition());
+  insertFromClipboard(initDefaultPos?: boolean) {
+    console.log('initDefaultPos:::::', initDefaultPos);
+    if (initDefaultPos) {
+      this.clipBoard.setPosition(this.stage.getPointerPosition());
+    }
     this.layers['shapesLayer'].add(this.clipBoard);
     this.clipBoard = undefined;
   }
 
   addComplex(type: eComplex) {
-    let _shapeObj = { type: type };
-    this.clipBoard = this.ComplexService[_shapeObj.type](_shapeObj);
+    let conf = { type: type, origin: 'complex' };
+    this.clipBoard = this.ComplexService[conf.type](conf);
   }
 }
