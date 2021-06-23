@@ -33,7 +33,8 @@ export class ViewerComponent implements AfterViewInit {
     private service: ViewerService,
     private ShapeService: ShapeService,
     private ComplexService: ComplexService
-  ) { }
+  ) {
+  }
 
   ngAfterViewInit(): void {
     let width = window.innerWidth * 0.9;
@@ -55,6 +56,9 @@ export class ViewerComponent implements AfterViewInit {
           const layerConfig = planObject.stage.layers[key];
           this.layers[layerConfig.name] = new Konva.Layer(layerConfig).setZIndex(i);
           this.stage.add(this.layers[layerConfig.name]);
+          if (layerConfig.name === eLayers[eLayers.segmentAndTemplateLayer]) {
+            this.ComplexService.layer = this.layers[layerConfig.name];
+          }
           if (layerConfig.isTransformer) {
             // add a new feature, lets add ability to draw selection rectangle
             this.selectionRectangle = new Konva.Rect(
@@ -227,7 +231,7 @@ export class ViewerComponent implements AfterViewInit {
     this.insertFromClipboard();
   }
 
-  public addShape(addObj: { type: eShapes }, e?: any):void {
+  public addShape(addObj: { type: eShapes }, e?: any): void {
     if (e) {
       this.addButtonPress(e);
     }
@@ -256,7 +260,7 @@ export class ViewerComponent implements AfterViewInit {
     this.removeButtonPress();
   }
 
- 
+
 
   private removeButtonPress(): void {
     const buttons = Array.from(document.getElementsByTagName('button'));

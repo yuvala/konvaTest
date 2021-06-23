@@ -5,14 +5,29 @@ body {
     overflow: hidden;
     background-color: #3d4240;
     box-sizing: border-box;
-    color:#ffffff;
-    color:#9b0404;
+    color: #ffffff;
+    color: #9b0404;
     a {
-        color:#ffffff;
+        color: #ffffff;
     }
     font-family: Arial, Helvetica, sans-serif;
 }
 canvas {
-   
-    border:1px rgb(179, 179, 179) solid !important;
+    border: 1px rgb(179, 179, 179) solid !important;
+}
+
+button {
+    background: black;
+    border: 1px white solid;
+    padding: 10px;
+    white-space: pre-wrap;
+    color: white;
+    border-radius: 5px;
+    font-size: 15px;
+
+    &.clicked {
+        background: orange;
+        border: 1px white solid;
+        color: black;
+    }
 }
