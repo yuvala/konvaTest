@@ -205,10 +205,10 @@ export class ViewerComponent implements AfterViewInit {
     });
   }
 
-  addToSegmentAndTemplateLayer(type: eShapes): void {
-    this.addShape(type);
+  public addToSegmentAndTemplateLayer(type: eShapes): void {
+    this.addShape({ type });
     this.insertFromClipboard(false, eLayers.segmentAndTemplateLayer);
-    
+
   }
 
   // private size = fromEvent(window, 'resize').pipe(
@@ -222,27 +222,49 @@ export class ViewerComponent implements AfterViewInit {
   // );
 
 
-  addToShapeLayer(type: eShapes): void {
-    this.addShape(type);
+  public addToShapeLayer(type: eShapes): void {
+    this.addShape({ type });
     this.insertFromClipboard();
   }
 
-  addShape(type: eShapes) {
-    let conf = { type: type, origin: 'primitive', initDefaultPos: true, draggable: true };
+  public addShape(addObj: { type: eShapes }, e?: any):void {
+    if (e) {
+      this.addButtonPress(e);
+    }
+    let conf = { type: addObj.type, origin: 'primitive', initDefaultPos: true, draggable: true };
     this.clipBoard = this.ShapeService[conf.type](conf);
   }
 
-  insertFromClipboard(initDefaultPos?: boolean, toThisLayer: eLayers = eLayers.shapesLayer) {
-    console.log('initDefaultPos:::::', initDefaultPos, eLayers[toThisLayer]);
+  public addComplex(addObj: { type: eComplex }, e?: any): void {
+    if (e) {
+      this.addButtonPress(e);
+    }
+    let conf = { type: addObj.type, origin: 'complex' };
+    this.clipBoard = this.ComplexService[conf.type](conf);
+  }
+
+  private insertFromClipboard(initDefaultPos?: boolean, toThisLayer: eLayers = eLayers.shapesLayer) {
+    const layerKey = this.clipBoard.hasName('complexGroup') ? eLayers.segmentAndTemplateLayer : toThisLayer;
     if (initDefaultPos) {
       this.clipBoard.setPosition(this.stage.getPointerPosition());
     }
-    this.layers[eLayers[toThisLayer]].add(this.clipBoard);
+
+    this.layers[eLayers[layerKey]].add(this.clipBoard);
     this.clipBoard = undefined;
+
+    //temp implemented for testing
+    this.removeButtonPress();
   }
 
-  addComplex(type: eComplex) {
-    let conf = { type: type, origin: 'complex' };
-    this.clipBoard = this.ComplexService[conf.type](conf);
+ 
+
+  private removeButtonPress(): void {
+    const buttons = Array.from(document.getElementsByTagName('button'));
+    buttons.forEach((but) => but.classList.remove('clicked'));
+  }
+
+  private addButtonPress(e: any): void {
+    this.removeButtonPress();
+    e.toElement.classList.add('clicked');
   }
 }

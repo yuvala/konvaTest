@@ -5,12 +5,12 @@
         <button (click)="addToShapeLayer(shapeType.circle)" title="auto add"> ShapeLayer: Circle </button>
     </div>
     <div>
-        <button (click)="addShape(shapeType.rectangle)"> ShapeLayer: rectangle </button>
-        <button (click)="addShape(shapeType.pentagon)"> ShapeLayer: Pentagon </button>
-        <button (click)="addShape(shapeType.circle)"> ShapeLayer: Circle </button>
+        <button (click)="addShape({type:shapeType.rectangle}, $event)"> ShapeLayer: rectangle </button>
+        <button (click)="addShape({type:shapeType.pentagon}, $event)"> ShapeLayer: Pentagon </button>
+        <button (click)="addShape({type:shapeType.circle}, $event)"> ShapeLayer: Circle </button>
     </div>
     <div>
-        <button (click)="addComplex(complexType['complex'])"> complexTool: rectangle </button>
+        <button (click)="addComplex({type:complexType.complex}, $event)"> <B>complexTool:</B> rectangle </button>
         <button (click)="addToSegmentAndTemplateLayer(shapeType.rectangle)">SegmentLayer: rectangle</button>
     </div>
     <div class="container-panel p-d-flex p-flex-row">

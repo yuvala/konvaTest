@@ -6,8 +6,10 @@ import { ShapeService } from './shape.service';
   providedIn: 'root'
 })
 export class ComplexService {
-
+  strokeColor = 'red';
   colors = ['red', 'orange', 'yellow'];
+  scale =5;// viewer.stage.getScale().x;
+  scaledLStroke = 5 / this.scale;
   constructor(private shapeService: ShapeService) { }
 
   complex(type: any) {
@@ -18,13 +20,29 @@ export class ComplexService {
       // visible: true,
       name: 'complexGroup'
     });
+    var connectingLine;
+    var connectingCircle;
+
+    connectingLine = new Konva.Line({
+      stroke: this.strokeColor,
+      strokeWidth: this.scaledLStroke > 5 ? 5 : this.scaledLStroke,
+      lineCap: 'round',
+      lineJoin: 'round',
+      name: 'userline'
+    });
+
+    connectingCircle = new Konva.Circle({
+      stroke: this.strokeColor,
+      strokeWidth: this.scaledLStroke > 5 ? 5 : this.scaledLStroke,
+      name: 'usercircle'
+    });
 
     this.colors.forEach((k, i) => {
-      const obj = this.shapeService.rectangle({ 
-        type: 'rectangle', 
-        x: i * 30, 
-        y: i * 30 ,
-        draggable:false
+      const obj = this.shapeService.rectangle({
+        type: 'rectangle',
+        x: i * 30,
+        y: i * 30,
+        draggable: false
       });
       obj.fill(k);
       group.add(obj);
