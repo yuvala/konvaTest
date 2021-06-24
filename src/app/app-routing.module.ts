@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { TestAComponent } from './test-a/test-a.component';
 import { TestBComponent } from './test-b/test-b.component';
 import { TestCComponent } from './test-c/test-c.component';
+import { TestComplexComponent } from './test-complex/test-complex.component';
 import { TestDComponent } from './test-d/test-d.component';
 import { TestEComponent } from './test-e/test-e.component';
 import { ViewerComponent } from './viewer/viewer.component';
@@ -13,11 +14,17 @@ const routes: Routes = [
   { path: 'test-b', component: TestBComponent },
   { path: 'test-c', component: TestCComponent },
   { path: 'test-d', component: TestDComponent },
-  { path: 'test-e', component: TestEComponent }
+  { path: 'test-e', component: TestEComponent },
+  { path: 'test-complex', component: TestComplexComponent }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+
+
+
+  
+ }

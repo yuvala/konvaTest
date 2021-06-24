@@ -10,6 +10,7 @@ import { TestCComponent } from './test-c/test-c.component';
 import { TestDComponent } from './test-d/test-d.component';
 import { TestEComponent } from './test-e/test-e.component';
 import { ViewerComponent } from './viewer/viewer.component';
+import { TestComplexComponent } from './test-complex/test-complex.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ViewerComponent } from './viewer/viewer.component';
     TestCComponent,
     TestDComponent,
     TestEComponent,
-    ViewerComponent
+    ViewerComponent,
+    TestComplexComponent
   ],
   imports: [
     BrowserModule,

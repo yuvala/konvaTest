@@ -6,6 +6,7 @@ import { ShapeService } from './shape.service';
   providedIn: 'root'
 })
 export class ComplexService {
+  
   strokeColor = 'red';
   colors = ['red', 'orange', 'yellow'];
   scale = 5;// viewer.stage.getScale().x;

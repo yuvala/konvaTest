@@ -1,23 +1,21 @@
 
-//// <reference path="../Models/ImageDataModels.ts" />
-//// <reference path="../Declaretions.ts" />
+// //// <reference path="../Models/ImageDataModels.ts" />
+// //// <reference path="../Declaretions.ts" />
 
-'use strict';
+// 'use strict';
 
-import Konva from 'konva';
-import { Context } from 'konva/lib/Context';
-import { PointF, RectangleF } from "./ImageDataModels";
-import { DTOImplantFamily } from './TemplatesModels';
+import Konva from "konva";
+import { PointF } from "src/app/viewer/interfaces/ImageDataModels";
+import { HipToolsViewer } from "./HipToolsViewer";
 
 
 declare var Vec2: any;
 declare var vMath: any;
 declare var MathL: any;
 
-class ViewerHelper {
-  
- 
-    static MoveObjectToGroupKeepLocation = function (group, objectToMove) {
+export class ViewerHelper {
+
+    static MoveObjectToGroupKeepLocation(group: any, objectToMove: any) {
         var oldObjTransform = objectToMove.getAbsoluteTransform().m;
         var groupInvertedTransform = MathL.InvertTransformMatrix(group.getAbsoluteTransform().m);
 
@@ -25,8 +23,8 @@ class ViewerHelper {
         objectToMove.moveTo(group);
         ViewerHelper.SetObjectTransformMatrix(objectToMove, newObjTransform);
     }
-	
-    static SetObjectTransformMatrix = function (object, matrix) {
+
+    static SetObjectTransformMatrix(object: any, matrix: any) {
         var transationX = matrix[4];
         var transationY = matrix[5];
         var scaleX = Math.sqrt(matrix[0] * matrix[0] + matrix[1] * matrix[1]);
@@ -44,14 +42,14 @@ class ViewerHelper {
         }
         var angleDegree = angle * 180 / Math.PI;
 
-		object.setOffset({ x:0, y:0});
+        object.setOffset({ x: 0, y: 0 });
         object.position({ x: transationX, y: transationY });
         object.setRotation(angleDegree);
         object.scale({ x: scaleX, y: scaleY });
 
     }
 
-    static TranslatePointCoords = function (point: PointF, origCoordsObj, destCoordsObj) {
+    static TranslatePointCoords(point: PointF, origCoordsObj: any, destCoordsObj: any) {
         var oldObjTransform = origCoordsObj.getAbsoluteTransform().m;
         var newObjTransform = destCoordsObj.getAbsoluteTransform().m;
 
@@ -61,7 +59,7 @@ class ViewerHelper {
         return pointInNewCoords;
     }
 
-    static TranslateVectorCoords = function (vector: PointF, origCoordsObj, destCoordsObj) {
+    static TranslateVectorCoords(vector: PointF, origCoordsObj: any, destCoordsObj: any) {
         var oldObjTransform = origCoordsObj.getAbsoluteTransform().m;
         var newObjTransform = destCoordsObj.getAbsoluteTransform().m;
 
@@ -71,8 +69,8 @@ class ViewerHelper {
         return vectorInNewCoords;
     }
 
-      
-    static traverseContainer = function (container, action) {
+
+    static traverseContainer(container: any, action: any) {
         var shouldTerminate = action(container);
         if (container.getChildren == null || shouldTerminate) {
             return;
@@ -80,14 +78,14 @@ class ViewerHelper {
         var children = container.getChildren();
         var tempChildren = children.slice();
 
-        tempChildren.forEach(function (child) {
+        tempChildren.forEach(function (child: any) {
             ViewerHelper.traverseContainer(child, action);
         });
     }
-      static hexToRgb = function (hex) {
+    static hexToRgb(hex: any): any {
         // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
         var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-        hex = hex.replace(shorthandRegex, function (m, r, g, b) {
+        hex = hex.replace(shorthandRegex, function (m: any, r: any, g: any, b: any) {
             return r + r + g + g + b + b;
         });
 
@@ -101,22 +99,21 @@ class ViewerHelper {
 
 
 
-   
-    
-    static CreateCircleWithCrossShape = function (stage, centerPoint: PointF, strokecolor, name, radius, drawOuterCircle: boolean, backgroundColor= 'transparent') {
+
+
+    static CreateCircleWithCrossShape(stage: any, centerPoint: PointF, strokecolor: string, name: string, radius: number, drawOuterCircle: boolean, backgroundColor = 'transparent') {
         var circleCross = new Konva.Shape({
             x: centerPoint.x,
             y: centerPoint.y,
             drawOuterCircle: drawOuterCircle,
-            sceneFunc: function (context:any) {
+            sceneFunc: function (context) {
                 context.beginPath();
                 context.moveTo(radius, 0);
                 context.lineTo(- radius, 0);
                 context.moveTo(0, - radius);
                 context.lineTo(0, radius);
                 context.fillStrokeShape(this);
-                if (this.getAttrs().drawOuterCircle == true)
-                {
+                if (this.getAttrs().drawOuterCircle == true) {
                     context.beginPath();
                     context.arc(0, 0, radius + 3, 0, 2 * Math.PI);
                     context.fillStrokeShape(this);
@@ -124,8 +121,7 @@ class ViewerHelper {
                     this.setAttr('height', (radius + 3) * 2);
                     context.closePath();
                 }
-                else
-                {
+                else {
                     this.setAttr('width', radius * 2);
                     this.setAttr('height', radius * 2);
                 }
@@ -150,7 +146,7 @@ class ViewerHelper {
         return circleCross;
     }
 
-    static getBoundingRect = function (group, excludeName, isRecursive = false) {
+    static getBoundingRect(group: any, excludeName: any, isRecursive = false): any {
         var children = group.getChildren();
         var c;
         var boundingRect = null;
@@ -164,8 +160,7 @@ class ViewerHelper {
                 if (cBounds != null)
                     cBounds = MathL.TranslateRectangleCoords(cBounds, c, group);
             }
-            else if (c.getAttr('name') != excludeName && c.getAttr('name') != 'rotatehandle' && c.getAttr('name') != 'rotatehandleHitRegion' && c.getAttr('name') != 'rotatecenter' && c.getClassName() != 'Line')
-            {
+            else if (c.getAttr('name') != excludeName && c.getAttr('name') != 'rotatehandle' && c.getAttr('name') != 'rotatehandleHitRegion' && c.getAttr('name') != 'rotatecenter' && c.getClassName() != 'Line') {
                 cBounds = new RectangleF(0, 0, c.getWidth(), c.getHeight());
                 cBounds = MathL.TranslateRectangleCoords(cBounds, c, group);
             }
@@ -183,14 +178,14 @@ class ViewerHelper {
     }
 
     //rotatePoint in absolute coords
-    static rotate = function (group, rotatePoint, angle) {
+    static rotate(group: any, rotatePoint: any, angle: any) {
         var anchorPointOldRectCoords = MathL.TransformCoords(rotatePoint, MathL.InvertTransformMatrix(group.getAbsoluteTransform().m));
         group.rotate(angle);
         var anchorPointNewRectCoords = MathL.TransformCoords(rotatePoint, MathL.InvertTransformMatrix(group.getAbsoluteTransform().m));
         ViewerHelper.MoveObjectPointToPoint(group, anchorPointOldRectCoords, anchorPointNewRectCoords);
     }
 
-    static MoveObjectPointToPoint = function (object, objPoint_objCoords, moveToPoint_objCoords) {
+    static MoveObjectPointToPoint(object: any, objPoint_objCoords: any, moveToPoint_objCoords: any) {
         var movement = {
             x: moveToPoint_objCoords.x - objPoint_objCoords.x,
             y: moveToPoint_objCoords.y - objPoint_objCoords.y
@@ -199,15 +194,15 @@ class ViewerHelper {
         object.move(fixLayerCoords);
     }
 
-    static addRotateHandleAndBoundingRect = function (group, showBoundingRect: boolean) {
-        let _lastLocation;
-        let _this = this;
-        let stage = group.getStage();
-        let layer = group.getLayer();
+    static addRotateHandleAndBoundingRect(group: any, showBoundingRect: boolean) {
+        var _lastLocation;
+        var _this = this;
+        var stage = group.getStage();
+        var layer = group.getLayer();
 
-        let handle, handleHitRegion;
+        var handle: any, handleHitRegion: any;
 
-        let rotateCenter:any = new Konva.Circle({
+        var rotateCenter = new Konva.Circle({
             radius: 8,
             draggable: false,
             stroke: '#ed145b',
@@ -222,26 +217,24 @@ class ViewerHelper {
             stroke: '#FFFFFF',
             strokeWidth: 2,
             name: 'boundingRect',
-          
 
-            sceneFunc: function (canvas) {
+
+            sceneFunc(canvas: any) {
                 var boundingRect = ViewerHelper.getBoundingRect(group, 'boundingRect');
                 var context = canvas._context;
                 context.beginPath();
-                if (showBoundingRect)
-                {
+                if (showBoundingRect) {
                     context.rect(boundingRect.x, boundingRect.y, boundingRect.width, boundingRect.height);
                 }
                 context.closePath();
                 canvas.strokeShape(this);
 
 
-                if (handleHitRegion != null)
-                {
+                if (handleHitRegion != null) {
                     var otherGroups = group.getAttr('otherGroupsForRotationHandleCalculation');
                     if (otherGroups != null) {
-                        var groupsBounds = null;
-                        otherGroups.forEach(g => {
+                        var groupsBounds: { Union: (arg0: any) => any; Inflate: (arg0: any) => any; } | null = null;
+                        otherGroups.forEach((g: any) => {
                             var bounds = ViewerHelper.getBoundingRect(g, 'boundingRect');
                             bounds = MathL.TranslateRectangleCoords(bounds, g, group);
                             if (groupsBounds == null)
@@ -256,24 +249,24 @@ class ViewerHelper {
                     }
 
                     var handleHeight = handle.getHeight();
-                    var x = rotateCenter.getX() - handle.getWidth() / 2;//boundingRect.x + (boundingRect.width - handle.getWidth()) / 2;
+                    var x = rotateCenter.x() - handle.getWidth() / 2;//boundingRect.x + (boundingRect.width - handle.getWidth()) / 2;
                     var y = boundingRect.y - handleHeight;
-                    var lineLength = Math.abs(boundingRect.y - rotateCenter.getPosition().y); // getY())
+                    var lineLength = Math.abs(boundingRect.y - rotateCenter.getY())
                     var isTibial = this.getParent().getParent().attrs.shapeType == DTOImplantFamily.Tibial;
 
-                    handleHitRegion.setX(rotateCenter.getPosition());//getX());
+                    handleHitRegion.setX(rotateCenter.x());
                     if (isTibial)
-                        handleHitRegion.setY(boundingRect.height + handleHeight *1.5);// / 2
+                        handleHitRegion.setY(boundingRect.height + handleHeight * 1.5);// / 2
                     else
                         handleHitRegion.setY(y + handleHeight / 2);
 
                     context.beginPath();
-                    context.moveTo(rotateCenter.getX(), rotateCenter.getY());
+                    context.moveTo(rotateCenter.x(), rotateCenter.y());
 
                     if (isTibial)
-                        context.lineTo(handleHitRegion.getX(), boundingRect.height + handleHeight);
+                        context.lineTo(handleHitRegion.x(), boundingRect.height + handleHeight);
                     else
-                        context.lineTo(handleHitRegion.getX(), handleHitRegion.getY() + handleHeight / 2);
+                        context.lineTo(handleHitRegion.x(), handleHitRegion.getY() + handleHeight / 2);
 
                     context.closePath();
                     canvas.strokeShape(this);
@@ -282,9 +275,9 @@ class ViewerHelper {
 
                     handle.setX(x);
                     if (this.getParent().getParent().attrs.shapeType == DTOImplantFamily.Tibial)
-                        handle.setY(boundingRect.y + boundingRect.height + handleHeight );
+                        handle.setY(boundingRect.y + boundingRect.height + handleHeight);
                     else
-                        handle.setY(y );
+                        handle.setY(y);
                 }
 
             },
@@ -297,6 +290,7 @@ class ViewerHelper {
 
         var rotatehandelIcon = new Image();
         rotatehandelIcon.onload = function () {
+            let prevRotationEvent: any;
             //var handle = new Konva.Path({
             //    data: 'M50.605,27.683l4.684-4.685H42.557v12.733l4.648-4.649c2.17,2.333,3.371,5.345,3.371,8.548c0,3.359-1.309,6.517-3.684,8.893c - 4.902,4.902-12.881,4.902-17.785,0c - 2.375 - 2.375 - 3.684 - 5.533 - 3.684 - 8.893s1.309 - 6.518,3.684-8.893l-3.391 - 3.392c-3.281,3.281-5.09,7.645-5.09,12.284c0,4.641,1.809,9.003,5.09,12.284S33.359,57.002,38,57.002s9.004-1.807,12.283-5.088c3.283 - 3.281,5.09-7.644,5.09-12.284C55.373,35.146,53.682,30.923,50.605,27.683z',
             //    fill: 'white',
@@ -328,39 +322,36 @@ class ViewerHelper {
             group.add(handleHitRegion);
 
 
-            var prevRotationEvent;
-            handleHitRegion.on("dragmove touchmove", function (e) {
+
+            handleHitRegion.on("dragmove touchmove", (e: any) => {
                 var disableRotate = group.getAttr('disableRotate');
                 if (!disableRotate) {
-
                     handle.setX(handleHitRegion.getX());
                     handle.setY(handleHitRegion.getY());
 
                     var angleToMouse = ViewerHelper.claculateRotationAngleByMouseLocation(rotateCenter, prevRotationEvent, e);
                     prevRotationEvent = e;
                     console.log('angleToMouse ' + angleToMouse);
-                    if(angleToMouse){
-                    var rotatePoint_groupCoords = MathL.TransformCoords({ x: 0, y: 0 }, rotateCenter.getAbsoluteTransform().m);
-                    ViewerHelper.rotate(group, rotatePoint_groupCoords, angleToMouse);
+                    if (angleToMouse) {
+                        var rotatePoint_groupCoords = MathL.TransformCoords({ x: 0, y: 0 }, rotateCenter.getAbsoluteTransform().m);
+                        ViewerHelper.rotate(group, rotatePoint_groupCoords, angleToMouse);
                     }
                 }
             });
-            handleHitRegion.on("mousedown touchstart", function (e) {
+            handleHitRegion.on("mousedown touchstart", (e: any) => {
                 var disableRotate = group.getAttr('disableRotate');
-                if (!disableRotate)
-                {
+                if (!disableRotate) {
 
                     handle.setX(handleHitRegion.getX());
                     handle.setY(handleHitRegion.getY());
                     handle.moveToTop();
-                    this.moveToTop();
+                    handleHitRegion.moveToTop();
                     prevRotationEvent = e;
                 }
             });
-            handleHitRegion.on("dragend touchend", function () {
-                var disableRotate = group.getAttr('disableRotate');
-                if (!disableRotate)
-                {
+            handleHitRegion.on("dragend touchend", () => {
+                let disableRotate = group.getAttr('disableRotate');
+                if (!disableRotate) {
 
                     handle.setX(handleHitRegion.getX());
                     handle.setY(handleHitRegion.getY());
@@ -369,23 +360,21 @@ class ViewerHelper {
                 }
             });
             // add hover styling
-            handleHitRegion.on("mouseover touchstart", function () {
+            handleHitRegion.on("mouseover touchstart", () => {
                 var disableRotate = group.getAttr('disableRotate');
-                if (!disableRotate)
-                {
-                    var layer = this.getLayer();
+                if (!disableRotate) {
+                    let layer = handleHitRegion.getLayer();
                     document.body.style.cursor = 'w-resize';
-                    this.setStroke('#1fb6fc');
+                    handleHitRegion.setStroke('#1fb6fc');
                     layer.batchDraw();
                 }
             });
-            handleHitRegion.on("mouseout touchend", function () {
+            handleHitRegion.on("mouseout touchend", () => {
                 var disableRotate = group.getAttr('disableRotate');
-                if (!disableRotate)
-                {
-                    var layer = this.getLayer();
+                if (!disableRotate) {
+                    var layer = handleHitRegion.getLayer();
                     document.body.style.cursor = "default";
-                    this.setStroke('transparent');
+                    handleHitRegion.setStroke('transparent');
                     layer.batchDraw();
                 }
             });
@@ -401,57 +390,57 @@ class ViewerHelper {
 
     }
 
-	static claculateRotationAngleByMouseLocation = function (rotateCenter, prevRotationEvent, mouseEvent) {
-		var m = rotateCenter.getAbsoluteTransform().m;
-		var anchorPoint = MathL.TransformCoords({ x: 0, y: 0 }, m);
-		//take care of PC touch 
-		//if (mouseEvent.evt.layerX && mouseEvent.evt.layerY) {
-		//	var oldlocation = { x: prevRotationEvent.evt.layerX, y: prevRotationEvent.evt.layerY };
-		//	var newlocation = { x: mouseEvent.evt.layerX, y: mouseEvent.evt.layerY };
-		//} else {
-			var oldlocation = ViewerHelper.getOffset(prevRotationEvent.evt);
-			var newlocation = ViewerHelper.getOffset(mouseEvent.evt);
-		//}
-		
-		// var oldlocation = { x: prevRotationEvent.evt.layerX, y: prevRotationEvent.evt.layerY };
-		// var newlocation = { x: mouseEvent.evt.layerX, y: mouseEvent.evt.layerY };
-		var angle = ViewerHelper.calculateAngle(oldlocation, newlocation, anchorPoint);
+    static claculateRotationAngleByMouseLocation = function (rotateCenter, prevRotationEvent, mouseEvent) {
+        var m = rotateCenter.getAbsoluteTransform().m;
+        var anchorPoint = MathL.TransformCoords({ x: 0, y: 0 }, m);
+        //take care of PC touch 
+        //if (mouseEvent.evt.layerX && mouseEvent.evt.layerY) {
+        //	var oldlocation = { x: prevRotationEvent.evt.layerX, y: prevRotationEvent.evt.layerY };
+        //	var newlocation = { x: mouseEvent.evt.layerX, y: mouseEvent.evt.layerY };
+        //} else {
+        var oldlocation = ViewerHelper.getOffset(prevRotationEvent.evt);
+        var newlocation = ViewerHelper.getOffset(mouseEvent.evt);
+        //}
+
+        // var oldlocation = { x: prevRotationEvent.evt.layerX, y: prevRotationEvent.evt.layerY };
+        // var newlocation = { x: mouseEvent.evt.layerX, y: mouseEvent.evt.layerY };
+        var angle = ViewerHelper.calculateAngle(oldlocation, newlocation, anchorPoint);
 
 
-		return angle;
-	}
-	//take care of PC touch 
-	static getOffset = function (evt) {
-		var el = evt.target,
-			x: any = 0,
-			y: any = 0;
+        return angle;
+    }
+    //take care of PC touch 
+    static getOffset = function (evt) {
+        var el = evt.target,
+            x: any = 0,
+            y: any = 0;
 
-		if (evt.layerX && evt.layerY) {
-			x = evt.layerX;
-			y = evt.layerY;
+        if (evt.layerX && evt.layerY) {
+            x = evt.layerX;
+            y = evt.layerY;
 
-		} else {
+        } else {
 
-			while (el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
-				x += el.offsetLeft - el.scrollLeft;
-				y += el.offsetTop - el.scrollTop;
-				el = el.offsetParent;
-			}
-			if (evt.type.indexOf("touch")!=-1) {
-				x = evt.touches[0].clientX - x;
-				y = evt.touches[0].clientY - y;
-			} else {
-				x = evt.clientX - x;
-				y = evt.clientY - y;
-			}
-		}
+            while (el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
+                x += el.offsetLeft - el.scrollLeft;
+                y += el.offsetTop - el.scrollTop;
+                el = el.offsetParent;
+            }
+            if (evt.type.indexOf("touch") != -1) {
+                x = evt.touches[0].clientX - x;
+                y = evt.touches[0].clientY - y;
+            } else {
+                x = evt.clientX - x;
+                y = evt.clientY - y;
+            }
+        }
 
-		return { x: x, y: y };
-	}
+        return { x: x, y: y };
+    }
 
 
 
-    
+
     static calculateAngle = function (p1: PointF, p2: PointF, center: PointF) {
         var theta1 = Math.atan2((p1.y - center.y), (p1.x - center.x));
         var theta2 = Math.atan2((p2.y - center.y), (p2.x - center.x));
@@ -459,12 +448,12 @@ class ViewerHelper {
         return angleDegree;
     }
 
-    
-    static getDistance = function (p1, p2) {
+
+    static getDistance = function (p1: any, p2: any): number {
         return Math.sqrt(Math.pow((p2.x - p1.x), 2) + Math.pow((p2.y - p1.y), 2));
     }
 
-    static addConnectingLine = function (group, name) {
+    static addConnectingLine = function (group: any, name: string) {
         var stage = group.getStage();
         var layer = group.getLayer();
         var _this = this;
@@ -511,7 +500,7 @@ class ViewerHelper {
         connectingLine.moveToBottom();
         return connectingLine;
     }
- 
+
     static calcProjectedPointOnLine = function (line1, line2, point) {
         var lineVecor = line2.subV(line1);
         var pointVector = point.subV(line1);
@@ -521,127 +510,122 @@ class ViewerHelper {
         return projectedPoint;
     }
 
-	static CalcProjectionVector = function (vector, dirVec) {
-		// assumed that dirVec is normalized!
-		var len = MathL.DotProduct(vector, dirVec);
-		var proj = MathL.Multiply(dirVec, len);
-		return proj;
-	}
-   
-	static moveLabel = function (label, newPosition: PointF) {
+    static CalcProjectionVector = function (vector, dirVec) {
+        // assumed that dirVec is normalized!
+        var len = MathL.DotProduct(vector, dirVec);
+        var proj = MathL.Multiply(dirVec, len);
+        return proj;
+    }
+
+    static moveLabel(label:any, newPosition: PointF) {
         var isLabelRepositionNotAllowed = label.getAttr('dragged') == null ? false : label.getAttr('dragged');
-        if (!isLabelRepositionNotAllowed)
-        {
-			label.position(newPosition);
+        if (!isLabelRepositionNotAllowed) {
+            label.position(newPosition);
         }
     }
 
-	static addLabelWithDirection = function (group, labelname, backgroundcolor, line, pointerDirection, originalFontSize = 14, opacity = 0.8, label = null, point = null, color = 'white') {
-		return ViewerHelper.addLabel(group, labelname, backgroundcolor, line, originalFontSize, opacity, label, point, color, pointerDirection, 20)
+    static addLabelWithDirection(group:any, labelname:any, backgroundcolor:any, line:any, pointerDirection:any, originalFontSize = 14, opacity = 0.8, label = null, point = null, color = 'white') {
+        return ViewerHelper.addLabel(group, labelname, backgroundcolor, line, originalFontSize, opacity, label, point, color, pointerDirection, 20)
     }
 
-	static removeLabel(viewer, labelname: string, withLine: boolean) {
-		var layer = viewer.segmentAndTemplatelayer;
-		var label = layer.find('.' + labelname)[0];
-		if (!label) return;
-		if (withLine) {
-			var connectingline  = layer.find('.connectinglineToLabel').filter(line => line.getAttr('label').name() == labelname)[0];
-			if (connectingline) {
-				connectingline.destroy()
-			}
-		
-		}
-		label.destroy();
-		layer.draw();
-	}
+    static removeLabel(viewer: any, labelname: any, withLine: boolean) {
+        var layer = viewer.segmentAndTemplatelayer;
+        var label = layer.find('.' + labelname)[0];
+        if (!label) return;
+        if (withLine) {
+            var connectingline = layer.find('.connectinglineToLabel').filter((line:any) => line.getAttr('label').name() == labelname)[0];
+            if (connectingline) {
+                connectingline.destroy()
+            }
 
-	static createLabel(viewer, labelname) {
-		var layer = viewer.segmentAndTemplatelayer;
-		var label = layer.find('.' + labelname)[0];
-		var templateGroupList = layer.find('.templateGroup');
-			if (templateGroupList.length > 0) {
-				var cupsGroup = templateGroupList.filter(g => g.getAttr('shapeType') == 'Cups')[0];
-				if (cupsGroup) {
-					ViewerHelper.traverseContainer(cupsGroup, function (child) {
-						if (child.getAttr('cupVec') != null) {
-							if (!label) {
-							//	HipToolsViewer.initInclanationLabel(viewer, child);
-							} else {
-							//	HipToolsViewer.recalculateInclinationLabel(viewer, child);
-							}
-							layer.draw();
-						}
-					})
-				}
-			}
-	}
+        }
+        label.destroy();
+        layer.draw();
+    }
 
-	static toggleShowHideLabel(viewer, labelname: string, withline: boolean) {
+    static createLabel(viewer: any, labelname: any) {
+        let layer = viewer.segmentAndTemplatelayer;
+        let label = layer.find('.' + labelname)[0];
+        let templateGroupList = layer.find('.templateGroup');
+        if (templateGroupList.length > 0) {
+            var cupsGroup = templateGroupList.filter((g: any) => g.getAttr('shapeType') == 'Cups')[0];
+            if (cupsGroup) {
+                ViewerHelper.traverseContainer(cupsGroup, function (child: any) {
+                    if (child.getAttr('cupVec') != null) {
+                        if (!label) {
+                            HipToolsViewer.initInclanationLabel(viewer, child);
+                        } else {
+                            HipToolsViewer.recalculateInclinationLabel(viewer, child);
+                        }
+                        layer.draw();
+                    }
+                })
+            }
+        }
+    }
 
-		
-		var layer = viewer.segmentAndTemplatelayer;
-		var label = layer.find('.' + labelname)[0];
-		if (label) {
+    static toggleShowHideLabel(viewer: any, labelname: string, withline: boolean) {
+        let layer = viewer.segmentAndTemplatelayer;
+        let label = layer.find('.' + labelname)[0];
+        if (label) {
 
-			ViewerHelper.removeLabel(viewer, labelname, withline);
-			//layer.draw();
-		} else {
-			var templateGroupList = layer.find('.templateGroup');
-			if (templateGroupList.length > 0) {
-				var cupsGroup = templateGroupList.filter(g => g.getAttr('shapeType') == 'Cups')[0];
-				if (cupsGroup) {
-					ViewerHelper.traverseContainer(cupsGroup, function (child) {
-						if (child.getAttr('cupVec') != null)
-                        // HipToolsViewer.initInclanationLabel(viewer, child);
-						layer.draw();
-					})
-				}
-			}
-		}
-	}
+            ViewerHelper.removeLabel(viewer, labelname, withline);
+            //layer.draw();
+        } else {
+            var templateGroupList = layer.find('.templateGroup');
+            if (templateGroupList.length > 0) {
+                var cupsGroup = templateGroupList.filter((g: any) => g.getAttr('shapeType') == 'Cups')[0];
+                if (cupsGroup) {
+                    ViewerHelper.traverseContainer(cupsGroup, function (child: any) {
+                        if (child.getAttr('cupVec') != null) HipToolsViewer.initInclanationLabel(viewer, child);
+                        layer.draw();
+                    })
+                }
+            }
+        }
+    }
 
-    static addLabel = function (group, labelname, backgroundcolor, line, originalFontSize= 14, opacity= 0.8, label= null, point= null, color= 'white', pointerDirection = 'left', borderRadius = 20  ) {
+    static addLabel(group: any, labelname: any, backgroundcolor: string, line: any, originalFontSize = 14, opacity = 0.8, label: any = null, point = null, color = 'white', pointerDirection = 'left', borderRadius = 20): any {
         var offsetY = 0;
-        if (label == null)
-        {
+        if (label === null) {
             label = new Konva.Label({
                 name: labelname,
                 draggable: true,
-				enableDraggableIfNotSelected: true
-				
-			});
-			//label.visible('inherit')
+                enableDraggableIfNotSelected: true
+
+            });
+            //label.visible('inherit')
             label.add(new Konva.Tag({
                 opacity: opacity,
-				fill: backgroundcolor,
-				//dmf: removed to help performance if need to add - add to label
+                fill: backgroundcolor,
+                //dmf: removed to help performance if need to add - add to label
                 //shadowColor: 'black',
                 //shadowBlur: 4,
                 //shadowOffset: 5,
                 //shadowOpacity: 0.5,
-				visible: 'inherit',
-				cornerRadius: borderRadius,
+                visible: 'inherit',
+                cornerRadius: borderRadius,
                 pointerDirection: pointerDirection
             }));
 
 
-            label.on("touchend", function (e) {
+            label.on("touchend", function (e: any) {
                 label.setAttr('dragged', true);
-				console.log('^!^!^!^!^!^!^!^!^!^!^!^!^!' + labelname + " touchend");
+                console.log('^!^!^!^!^!^!^!^!^!^!^!^!^!' + labelname + " touchend");
             });
 
-			label.on("dragend", function (e) {
-				label.setAttr('dragged', true);
-				console.log('^!^!^!^!^!^!^!^!^!^!^!^!^!' + labelname + "dragend");
-			});
+            label.on("dragend", function (e: any) {
+                label.setAttr('dragged', true);
+                console.log('^!^!^!^!^!^!^!^!^!^!^!^!^!' + labelname + "dragend");
+            });
 
-    //        label.on("click tap", function () {
-    //            //label.setAttr('dragged', false);
-				//console.log('label click tap!');
-    //        });
-    //both click and dblclick doesnot work in IE
-            label.on("dblclick dbltap", function (e) {
-            //TODO: remove logs
+            //        label.on("click tap", function () {
+            //            //label.setAttr('dragged', false);
+            //console.log('label click tap!');
+            //        });
+            //both click and dblclick doesnot work in IE
+            label.on("dblclick dbltap", function (e: any) {
+                //TODO: remove logs
                 console.log('label on dblclick dbltap!');
                 console.log(e.currentTarget);
                 var labelDblClickFunc = e.currentTarget.getAttr("doubleClickFunc");
@@ -651,8 +635,7 @@ class ViewerHelper {
             });
             group.add(label);
 
-            if (line != null || point != null)
-            {
+            if (line != null || point != null) {
                 var connectingLine = new Konva.Line({
                     stroke: 'white',
                     strokeWidth: 1,
@@ -671,12 +654,10 @@ class ViewerHelper {
             }
 
         }
-        else
-        {
+        else {
 
             var prevText = label.find('Text')[0];
-            if (prevText != null)
-            {
+            if (prevText != null) {
                 offsetY = prevText.getHeight() + prevText.y() + 20;
                 originalFontSize = prevText.getAttr('originalFontSize');
             }
@@ -692,8 +673,8 @@ class ViewerHelper {
             name: labelname + 'Text',
             padding: 4,
             y: offsetY
-		});
-		text.visible('inherit');
+        });
+        text.visible('inherit');
         label.add(text);
 
 
@@ -701,13 +682,13 @@ class ViewerHelper {
     }
 
 
-    static calculateLineCenterPoint(connectingLine) {
+    static calculateLineCenterPoint(connectingLine: any): PointF {
         var midX = (connectingLine.points()[0] + connectingLine.points()[2]) / 2;
         var midY = (connectingLine.points()[1] + connectingLine.points()[3]) / 2;
         return new PointF(midX, midY);
     }
 
-    static calculateLineLength = function (connectingLine) {
+    static calculateLineLength = function (connectingLine: any): number {
         var x1 = connectingLine.getPoints()[0];
         var y1 = connectingLine.getPoints()[1];
         var x2 = connectingLine.getPoints()[2];
@@ -718,9 +699,8 @@ class ViewerHelper {
         return distance;
     }
 
-    static GetClosestContainer = function (shape) {
-        if (shape == null)
-        {
+    static GetClosestContainer = function (shape: any) {
+        if (shape == null) {
             return null;
         }
         try {
@@ -737,22 +717,20 @@ class ViewerHelper {
             return null;
         }
     }
-    
-    static GetObjectLocation = function (object) {
+
+    static GetObjectLocation(object: any): any {
         return new Vec2(object.getX(), object.getY());
     }
 
-    static SetObjectLocation = function (object, loc) {
+    static SetObjectLocation(object: any, loc: any): void {
         object.setX(loc.x);
         object.setY(loc.y);
     }
 
-    static SetAnchorLocation = function (anchor, loc) {
+    static SetAnchorLocation = function (anchor: any, loc: any): void {
         ViewerHelper.SetObjectLocation(anchor, loc);
         var hitRegion = anchor.parent.find('.' + anchor.getName() + 'HitRegion')[0];
         ViewerHelper.SetObjectLocation(hitRegion, loc);
-	}
+    }
 
-
- 
 }
