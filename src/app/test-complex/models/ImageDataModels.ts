@@ -1,6 +1,7 @@
 //// <reference path="../Declaretions.ts" />
 
 import { ImageOrientation } from "src/app/viewer/interfaces/ImageDataModels";
+import { EProcedureType } from "./TemplatesModels";
 
 class DTOImageUploadData {
     ImageClientId!: string;
@@ -172,9 +173,9 @@ export enum EDTOCalibrationDevice {
 }
 
 class DTOBallCalibrationResult extends DTOBaseCalibrationResult implements IAutoCalibrationResult {
-    CenterImageCoords: PointF;
-    Radius: number;
-    BallDiameterInMM: number;
+    CenterImageCoords!: PointF;
+    Radius!: number;
+    BallDiameterInMM!: number;
 
     static Is(obj: any) {
         return obj instanceof DTOBallCalibrationResult;
@@ -190,62 +191,61 @@ class EDTOStatus {
 
 class DTOImageSaveAsyncResult extends DTOAsyncResultBase {
 
-    Result: DTOImageSaveResult;
+    Result!: DTOImageSaveResult;
 }
 
 class DTOImageSaveResult {
-    HasTask: boolean;
-    TaskId: string;
-    RecipientUploadStatus: DTORecipientUploadStatus[];
+    HasTask!: boolean;
+    TaskId!: string;
+    RecipientUploadStatus!: DTORecipientUploadStatus[];
 
 }
 
 class DTORecipientUploadStatus {
-    RecipientName: string;
+    RecipientName!: string;
 
-    UserSystemID: string;
+    UserSystemID!: string;
 
-    Status: EDTOStatus;
+    Status!: EDTOStatus;
 
 }
 
 class DTOSaveImageData {
     ImageId!: string;
     Filename!: string;
-    ImageStringBase64: string
-    CalibrationInfo: DTOCalibrationInfo;
-    SWIPData: string;
+    ImageStringBase64!: string
+    CalibrationInfo!: DTOCalibrationInfo;
+    SWIPData!: string;
 }
 
 class DTOCasePlanningInfo {
-    ProcedureName: string;
-    Comments: string;
-    SurgeryInfo: DTOSurgeryInfo;
-    CaseName: string; //patient name and date
-    CreatedBy: string; // as overlayes
-    PlanningDate: string; //simple string date time
-    PlanningDateUTC: string; //Date.UTC  toUTCString()
+    ProcedureName!: string;
+    Comments!: string;
+    SurgeryInfo!: DTOSurgeryInfo;
+    CaseName!: string; //patient name and date
+    CreatedBy!: string; // as overlayes
+    PlanningDate!: string; //simple string date time
+    PlanningDateUTC!: string; //Date.UTC  toUTCString()
 }
 
 class DTOImagePlanningInfo {
-    MeasurmentToolsInfo: DTOMeasurmentToolInfo[];
-    TemplatesInfo: DTOTemplateInfo[];
-    Side: EDTOAnatomicalSide;
+    MeasurmentToolsInfo!: DTOMeasurmentToolInfo[];
+    TemplatesInfo!: DTOTemplateInfo[];
+    Side!: EDTOAnatomicalSide;
 }
 
 class DTOSaveImageDataWithPlanningInfo extends DTOSaveImageData {
-    PlanningInfo: DTOImagePlanningInfo;
+    PlanningInfo!: DTOImagePlanningInfo;
 }
 
 
 class DTOSaveImageDataWithPlanningInfoAndOriginalImage extends DTOSaveImageData {
-    PlanningInfo: DTOImagePlanningInfo;
-    OriginalImageStringBase64: string;
+    PlanningInfo!: DTOImagePlanningInfo;
+    OriginalImageStringBase64!: string;
 }
 //DMF quentry recipient
 class DTOSaveToQuentryRecipient {
-    RecipientSystemID: string;
-
+    RecipientSystemID!: any;
     constructor() {
         this.RecipientSystemID = null;
     }
@@ -254,38 +254,38 @@ class DTOSaveToQuentryRecipient {
 
 
 class DTOSaveCaseDataWithPlanningInfo extends DTOSaveToQuentryRecipient {
-    CasePlanningInfo: DTOCasePlanningInfo;
-    SaveImagesDataWithPlanningInfo: DTOSaveImageDataWithPlanningInfo[];
-    PatientData: DTOPatientStudySaveData;
+    CasePlanningInfo!: DTOCasePlanningInfo;
+    SaveImagesDataWithPlanningInfo!: DTOSaveImageDataWithPlanningInfo[];
+    PatientData!: DTOPatientStudySaveData;
 }
 
 
 class DTOPatientStudySaveData {
-    PatientId: string; // attention two properies OatientId and PatientID
-    PatientLastName: string;
-    PatientFirstName: string;
-    PatientDOB: number;
-    Gender: string;
-    ReferingMD: string;
-    Accesion: string;
-    StudyDescription: string;
+    PatientId!: string; // attention two properies OatientId and PatientID
+    PatientLastName!: string;
+    PatientFirstName!: string;
+    PatientDOB!: number;
+    Gender!: string;
+    ReferingMD!: string;
+    Accesion!: string;
+    StudyDescription!: string;
 }
 
 class DTOSaveCaseDataWithPlanningInfoAndPatientData extends DTOSaveCaseDataWithPlanningInfo {
 
-    PatientData: DTOPatientStudySaveData;
+    PatientData!: DTOPatientStudySaveData;
 }
 
 class DTOSaveCaseDataWithPlanningInfoAndPatientStudyData extends DTOSaveToQuentryRecipient {
-    CasePlanningInfo: DTOCasePlanningInfo;
-    SaveImagesDataWithPlanningInfoAndOriginalImage: DTOSaveImageDataWithPlanningInfoAndOriginalImage[];
-    PatientData: DTOPatientStudySaveData;
+    CasePlanningInfo!: DTOCasePlanningInfo;
+    SaveImagesDataWithPlanningInfoAndOriginalImage!: DTOSaveImageDataWithPlanningInfoAndOriginalImage[];
+    PatientData!: DTOPatientStudySaveData;
 }
 class DTOSurgeryInfo {
 
-    SurgeryDateTime: number;
-    SurgeryDateTimeUTC: string; //new Date.UTC() toUTCString();
-    SurgeryInsitution: string
+    SurgeryDateTime!: number;
+    SurgeryDateTimeUTC!: string; //new Date.UTC() toUTCString();
+    SurgeryInsitution!: string
 }
 
 class EDTOAnatomicalSide {
@@ -316,18 +316,18 @@ class EDTOProcedure {
 }
 
 class DTOTemplateInfo {
-    Manufacturer: string;
-    Classification: string; //stem cup etc.
-    Title: string;
-    PartNo: string;
-    Comments: string;
-    Quantity: number;
-    TemplateValues: KeyValuePair[];
+    Manufacturer!: string;
+    Classification!: string; //stem cup etc.
+    Title!: string;
+    PartNo!: string;
+    Comments!: string;
+    Quantity!: number;
+    TemplateValues!: KeyValuePair[];
 }
 
 class DTOMeasurmentToolInfo {
-    ToolName: string;
-    ToolValues: KeyValuePair[]
+    ToolName!: string;
+    ToolValues!: KeyValuePair[]
 }
 
 class KeyValuePair {
@@ -340,46 +340,46 @@ class KeyValuePair {
 }
 
 class DTOAutoHipAsyncResult extends DTOAsyncResultBase {
-    Result: DTOAutoHipResult;
+    Result!: DTOAutoHipResult;
 }
 
 class DTOAutoKneeAsyncResult extends DTOAsyncResultBase {
-    Result: DTOAutoKneeResult;
+    Result!: DTOAutoKneeResult;
 }
 
 
 class DTOAutoDetectionBase {
-    IsLeftBodyPart: boolean;
-    EProcedureType: number;
-    IsAP: boolean;
+    IsLeftBodyPart!: boolean;
+    EProcedureType!: number;
+    IsAP!: boolean;
 }
 
 
 
 class DTOAutoHipResult extends DTOAutoDetectionBase {
-    SegmentPointsImageCoords: PointF[];
-    LldTool: DTOLldTool;
-    CupLocationDetailsRightSide: DTOCupLocationDetails;
-    CupLocationDetailsLeftSide: DTOCupLocationDetails;
-    StemLocationDetailsRightSide: DTOStemLocationDetails;
-    StemLocationDetailsLeftSide: DTOStemLocationDetails;
-    AutoHipDataRightSide: DTOAutoHipData;
-    AutoHipDataLeftSide: DTOAutoHipData;
+    SegmentPointsImageCoords!:  PointF[];
+    LldTool!:  DTOLldTool;
+    CupLocationDetailsRightSide!:  DTOCupLocationDetails;
+    CupLocationDetailsLeftSide!:  DTOCupLocationDetails;
+    StemLocationDetailsRightSide!:  DTOStemLocationDetails;
+    StemLocationDetailsLeftSide!:  DTOStemLocationDetails;
+    AutoHipDataRightSide!:  DTOAutoHipData;
+    AutoHipDataLeftSide!:  DTOAutoHipData;
     EProcedureType = EProcedureType.AutoHip;
     IsAp = true;
-    ResectionLine: PointF[]
+    ResectionLine!:  PointF[]
 }
 
 class DTOAutoHipData {
-    MedialShaftLineY2XCoefficients: number[];
-    LateralShaftLineY2XCoefficients: number[];
-    MidShaftLineY2XRightSideCoefficients: number[];
-    AnatomicalLineP1: PointF;
-    AnatomicalLineP2: PointF;
-    UpperCenterPointFinderMedialPoint: PointF;
-    UpperCenterPointFinderLineLateralPoint: PointF;
-    LowerCenterPointFinderLineMedialPoint: PointF;
-    LowerCenterPointFinderLineLateralPoint: PointF;
+    MedialShaftLineY2XCoefficients!:  number[];
+    LateralShaftLineY2XCoefficients!:  number[];
+    MidShaftLineY2XRightSideCoefficients!:  number[];
+    AnatomicalLineP1!:  PointF;
+    AnatomicalLineP2!:  PointF;
+    UpperCenterPointFinderMedialPoint!:  PointF;
+    UpperCenterPointFinderLineLateralPoint!:  PointF;
+    LowerCenterPointFinderLineMedialPoint!:  PointF;
+    LowerCenterPointFinderLineLateralPoint!:  PointF;
 }
 
 class DTOAutoKneeResult extends DTOAutoDetectionBase {
@@ -387,8 +387,8 @@ class DTOAutoKneeResult extends DTOAutoDetectionBase {
 }
 
 class DTOAutoKneeAPResult extends DTOAutoKneeResult {
-    FemorResectionLineTool: DTOAPResectionLineTool;
-    TibiaResectionLineTool: DTOAPResectionLineTool;
+    FemorResectionLineTool!:  DTOAPResectionLineTool;
+    TibiaResectionLineTool!:  DTOAPResectionLineTool;
 
     IsAP = true;
     EProcedureType = EProcedureType.AutoKnee;
@@ -396,41 +396,41 @@ class DTOAutoKneeAPResult extends DTOAutoKneeResult {
 
 
 class DTOAPResectionLineTool {
-    BoneAxis: DTOBoneAxisDetails;
-    Condyle: DTOAPKneeCondyleDetails;
+    BoneAxis!:  DTOBoneAxisDetails;
+    Condyle!:  DTOAPKneeCondyleDetails;
 }
 class DTOBoneAxisDetails {
-    TopLeft: PointF;
-    TopRight: PointF;
-    BottomLeft: PointF;
-    BottomRight: PointF;
+    TopLeft!:  PointF;
+    TopRight!:  PointF;
+    BottomLeft!:  PointF;
+    BottomRight!:  PointF;
 }
 
 class DTOAPKneeCondyleDetails {
-    TipLeft: PointF;
-    TipRight: PointF;
-    EdgeLeft: PointF;
-    EdgeRight: PointF;
+    TipLeft!:  PointF;
+    TipRight!:  PointF;
+    EdgeLeft!:  PointF;
+    EdgeRight!:  PointF;
 }
 
 class DTOAutoKneeLatResult extends DTOAutoKneeResult {
-    FemurData: DTOKneeLATFemurData;
-    TibiaData: DTOKneeLATTibiaData;
+    FemurData!:  DTOKneeLATFemurData;
+    TibiaData!:  DTOKneeLATTibiaData;
     EProcedureType = EProcedureType.AutoKnee;
     IsAP = false;
 }
 
 class DTOKneeLATFemurData {
-    AnteriorLinePnt: PointF;
-    PosteriorLineDistanceMM: number;
-    AnteriorLineDirection: PointF;
-    DistalLinePnt: PointF;
+    AnteriorLinePnt!:  PointF;
+    PosteriorLineDistanceMM!:  number;
+    AnteriorLineDirection!:  PointF;
+    DistalLinePnt!:  PointF;
 }
 
 class DTOKneeLATTibiaData {
-    TibialPlateauCenter: PointF;
-    TibialPlateauWidth: number;
-    TibialSlopeDirection: PointF;
+    TibialPlateauCenter!:  PointF;
+    TibialPlateauWidth!:  number;
+    TibialSlopeDirection!:  PointF;
 }
 class PointF {
     constructor(x: number, y: number) {
@@ -472,7 +472,7 @@ class RectangleF {
         return new RectangleF(x, y, w, h);
     }
 
-    IntersectsWith = function (rect) {
+    IntersectsWith  (rect) {
         if (rect.x >= this.x + this.width || this.x >= rect.x + rect.width || rect.y >= this.y + this.height) {
             return false;
         }
@@ -480,7 +480,7 @@ class RectangleF {
 
     }
 
-    Union = function (r2: RectangleF) {
+    Union  (r2: RectangleF) {
         var l = Math.min(this.Left, r2.Left);
         var t = Math.min(this.Top, r2.Top);
         var r = Math.max(this.Right, r2.Right);
@@ -488,7 +488,7 @@ class RectangleF {
         return new RectangleF(l, t, r - l, b - t);
     }
 
-    Intersect = function (r2: RectangleF) {
+    Intersect  (r2: RectangleF) {
         var l = Math.max(this.Left, r2.Left);
         var t = Math.max(this.Top, r2.Top);
         var r = Math.min(this.Right, r2.Right);
@@ -496,7 +496,7 @@ class RectangleF {
         return new RectangleF(l, t, Math.max(r - l, 0), Math.max(b - t, 0));
     }
 
-    Round = function () {
+    Round  () {
         var l = Math.round(this.Left);
         var t = Math.round(this.Top);
         var r = Math.round(this.Right);
@@ -504,7 +504,7 @@ class RectangleF {
         return new RectangleF(l, t, r - l, b - t);
     }
 
-    Inflate = function (size: number) {
+    Inflate  (size: number) {
         var l = this.Left - size;
         var t = this.Top - size;
         var r = this.Right + size;
@@ -516,31 +516,31 @@ class RectangleF {
 
 
 class LinePoints {
-    StartPoint: PointF;
-    EndPoint: PointF;
-    CenterPoint: PointF;
+    StartPoint!: PointF;
+    EndPoint!: PointF;
+    CenterPoint!: PointF;
 }
 
 
 class DTOCupLocationDetails {
-    Location: PointF;
-    Angle: number;
-    Radius: number;
+    Location!: PointF;
+    Angle!: number;
+    Radius!: number;
 }
 
 class DTOStemLocationDetails {
-    Location: PointF;
-    Angle: number;
-    Width: number;
+    Location!: PointF;
+    Angle!: number;
+    Width!: number;
 }
 
 class DTOLldTool {
-    LeftIschialTuberosity: PointF;
-    RightIschialTuberosity: PointF;
-    LeftLesserTrochanter: PointF;
-    RightLesserTrochanter: PointF;
-    LeftTearDrop: PointF;
-    RightTearDrop: PointF;
+    LeftIschialTuberosity!: PointF;
+    RightIschialTuberosity!: PointF;
+    LeftLesserTrochanter!: PointF;
+    RightLesserTrochanter!: PointF;
+    LeftTearDrop!: PointF;
+    RightTearDrop!: PointF;
 }
 
 
@@ -548,53 +548,53 @@ class DTOLldTool {
 
 class DTOImageDownloadAsyncResult extends DTOAsyncResultBase {
 
-    Result: DTOImageDownloadResult;
+    Result!: DTOImageDownloadResult;
 }
 
 class DTOImageDownloadResult {
-    DownloadedImages: DTODicomImageData[];
-    TotalImagesToDownload: number;
-    NumberOfDownloadedImages: number;
+    DownloadedImages!: DTODicomImageData[];
+    TotalImagesToDownload!: number;
+    NumberOfDownloadedImages!: number;
 }
 
 class DTODicomImageData {
     DicomContent: any;
     Additionaldata: any;
-    ImageKey: string;
-    StudyUID: string;
-    SeriesUID: string;
-    InstanceUID: string;
-    InstanceIdentifier: string;
-    ImageWidth: number;
-    ImageHeight: number;
-    BaseWLWindow: number;
-    BaseWLLevel: number;
+    ImageKey!: string;
+    StudyUID!: string;
+    SeriesUID!: string;
+    InstanceUID!: string;
+    InstanceIdentifier!: string;
+    ImageWidth!: number;
+    ImageHeight!: number;
+    BaseWLWindow!: number;
+    BaseWLLevel!: number;
 }
 
 //2.
 class DTOThumbnailImageDataAsyncResult extends DTOAsyncResultBase {
 
-    Result: DTOThumbnailImageData[];
+    Result!: DTOThumbnailImageData[];
 }
 
 class DTOThumbnailDownloadResultAsyncResult extends DTOAsyncResultBase {
 
-    Result: DTOThumbnailDownloadResult;
+    Result!: DTOThumbnailDownloadResult;
 }
 
 class DTOThumbnailDownloadResult {
 
-    ThumbnailImages: DTOThumbnailImageData[];
+    ThumbnailImages!: DTOThumbnailImageData[];
 
 
 }
 
 class DTOThumbnailImageData {
-    ImageStringBase64: string;
-    StudyUID: string;
-    SeriesUID: string;
-    InstanceUID: string;
-    InstanceVoyantID: string;
+    ImageStringBase64!: string;
+    StudyUID!: string;
+    SeriesUID!: string;
+    InstanceUID!: string;
+    InstanceVoyantID!: string;
 
     static ConvertToDTOThumbnails(thumbnails: DTOThumbnailImageData[]) {
         var result = new Array<DTOThumbnail>();

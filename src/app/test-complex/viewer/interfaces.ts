@@ -5,7 +5,7 @@ export interface IPlan {
 }
 
 export interface ICard {
-    image: string;
+    imageUri: string;
 }
 
 export class Vec2 {

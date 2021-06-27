@@ -4,62 +4,62 @@ import { DTOThumbnail, ImageID } from "./ImageSearchModels";
 import { EProcedureType } from "./TemplatesModels";
 
 export class DTOImageUploadData {
-    ImageClientId: string;
-    ImageStringBase64: string
-    ImageFormat: string;
+    ImageClientId!:  string;
+    ImageStringBase64!:  string
+    ImageFormat!:  string;
 }
 
 export class DTOImageUploadResult {
 
-    Result: any;
-    SystemErrorCode: number;
-    IsCompleted: boolean;
-    ServerDirectUrl: string;
-    Status: number;
-    StatusString: string;
+    Result!:  any;
+    SystemErrorCode!:  number;
+    IsCompleted!:  boolean;
+    ServerDirectUrl!:  string;
+    Status!:  number;
+    StatusString!:  string;
 }
 
 export class DcmImage {
     AdditionalData: any;
-    ImageID: ImageID;
+    ImageID!:  ImageID;
     DicomXMLData;
-    ImageInfo: ImageInfo;
-    BitePerPixel: number;
-    PngImageUrl: string;
-    OriginalImageWidth: number;
-    OriginalImageHeight: number;
-    BaseWLWindow: number;
-    BaseWLLevel: number;
-    WLImageDataUrl: string;
-    ImageServiceDirectUrl: string;
-    HasUploadPermissionsToOriginalFolder: boolean;
-    additionaldata: any;
-    SwipData: string;
+    ImageInfo!:  ImageInfo;
+    BitePerPixel!:  number;
+    PngImageUrl!:  string;
+    OriginalImageWidth!:  number;
+    OriginalImageHeight!:  number;
+    BaseWLWindow!:  number;
+    BaseWLLevel!:  number;
+    WLImageDataUrl!:  string;
+    ImageServiceDirectUrl!:  string;
+    HasUploadPermissionsToOriginalFolder!:  boolean;
+    additionaldata!:  any;
+    SwipData!:  string;
     constructor(imageID: ImageID) {
         this.ImageID = imageID;
     }
 }
 
 export class ImageInfo {
-    width: number;
-    height: number;
-    bitsPerPixel: number;
-    modalitySlope: number;
+    width!: number;
+    height!: number;
+    bitsPerPixel!: number;
+    modalitySlope!: number;
     lutDescriptor: any;
-    signed: number;
-    windowWidth: number;
-    windowCenter: number;
-    photometricInterpretation: string;
-    rowSpacing: number;
-    columnSpacing: number;
-    spacingType: number;
-    imageType: number;
-    lossyImageCompression: boolean;
+    signed!: number;
+    windowWidth!: number;
+    windowCenter!: number;
+    photometricInterpretation!: string;
+    rowSpacing!: number;
+    columnSpacing!: number;
+    spacingType!: number;
+    imageType!: number;
+    lossyImageCompression!: boolean;
 }
 
 export class ImageOrientation {
-    IsAP: boolean;
-    IsLeftBodyPart: boolean;
+    IsAP!: boolean;
+    IsLeftBodyPart!: boolean;
 
     Equals(b: ImageOrientation) {
 
@@ -80,23 +80,23 @@ export class DTOAsyncResultBase {
     ServerDirectUrl: string;
 }
 export class DTOBaseCalibrationAsyncResult extends DTOAsyncResultBase {
-    Result: DTOBaseCalibrationResult;
+    Result!: DTOBaseCalibrationResult;
 }
 
 export class ImageCalibrationData {
     constructor(public ImageID: ImageID) {
     }
-    ImageOrientation: ImageOrientation;
-    EProcedureType: number;
-    AutoCalibrationResult: IAutoCalibrationResult;
-    SavedCalibrationResult: DTOBaseCalibrationResult;
+    ImageOrientation!:  ImageOrientation;
+    EProcedureType!:  number;
+    AutoCalibrationResult!:  IAutoCalibrationResult;
+    SavedCalibrationResult!:  DTOBaseCalibrationResult;
 
 }
 
 export class DTOBaseCalibrationResult {
     TypeString: any;
-    Scaling: number;
-    Oversized: number;
+    Scaling!:  number;
+    Oversized!:  number;
 }
 
 export interface IAutoCalibrationResult {
@@ -118,25 +118,25 @@ export class DTOOversizeCalibrationResult extends DTOBaseCalibrationResult imple
 }
 
 export class DTOCircleCalibrationResult extends DTOBaseCalibrationResult implements IManualCalibrationResult {
-    LengthValue: number;
-    StartPoint: PointF;
-    EndPoint: PointF;
+    LengthValue!:  number;
+    StartPoint!:  PointF;
+    EndPoint!:  PointF;
     static Is(obj: any) {
         return obj instanceof DTOCircleCalibrationResult;
     }
 }
 
 export class DTORulerCalibrationResult extends DTOBaseCalibrationResult implements IManualCalibrationResult {
-    LengthValue: number;
-    StartPoint: PointF;
-    EndPoint: PointF;
+    LengthValue!:  number;
+    StartPoint!:  PointF;
+    EndPoint!:  PointF;
     static Is(obj: any) {
         return obj instanceof DTORulerCalibrationResult;
     }
 }
 
 export class DTOKingMarkCalibrationResult extends DTOBaseCalibrationResult implements IAutoCalibrationResult {
-    IsRefiningResults: boolean;
+    IsRefiningResults!:  boolean;
     static Is(obj: any) {
         return obj instanceof DTOKingMarkCalibrationResult;
     }
@@ -149,18 +149,18 @@ export class DTONotFoundCalibrationResult extends DTOBaseCalibrationResult imple
 }
 
 export class DTOPrecalibratedImageResult extends DTOBaseCalibrationResult implements IAutoCalibrationResult {
-    PrecalibratedData: DTOCalibrationInfo;
+    PrecalibratedData!:  DTOCalibrationInfo;
     static Is(obj: any) {
         return obj instanceof DTOPrecalibratedImageResult;
     }
 }
 
 export class DTOCalibrationInfo {
-    CalibratedMMPerPixel: number;
-    View: EDTOAnatomicalView;
-    Anatomy: EDTOAnatomicalSide;
-    Procedure: EDTOProcedure;
-    CalibrationDevice: EDTOCalibrationDevice;
+    CalibratedMMPerPixel!:  number;
+    View!:  EDTOAnatomicalView;
+    Anatomy!:  EDTOAnatomicalSide;
+    Procedure!:  EDTOProcedure;
+    CalibrationDevice!:  EDTOCalibrationDevice;
 }
 
 
@@ -173,9 +173,9 @@ export enum EDTOCalibrationDevice {
 }
 
 export class DTOBallCalibrationResult extends DTOBaseCalibrationResult implements IAutoCalibrationResult {
-    CenterImageCoords: PointF;
-    Radius: number;
-    BallDiameterInMM: number;
+    CenterImageCoords!:  PointF;
+    Radius!:  number;
+    BallDiameterInMM!:  number;
 
     static Is(obj: any) {
         return obj instanceof DTOBallCalibrationResult;
@@ -191,61 +191,61 @@ export class EDTOStatus {
 
 export class DTOImageSaveAsyncResult extends DTOAsyncResultBase {
 
-    Result: DTOImageSaveResult;
+    Result!:  DTOImageSaveResult;
 }
 
 export class DTOImageSaveResult {
-    HasTask: boolean;
-    TaskId: string;
-    RecipientUploadStatus: DTORecipientUploadStatus[];
+    HasTask!:  boolean;
+    TaskId!:  string;
+    RecipientUploadStatus!:  DTORecipientUploadStatus[];
 
 }
 
 export class DTORecipientUploadStatus {
-    RecipientName: string;
+    RecipientName!:  string;
 
-    UserSystemID: string;
+    UserSystemID!:  string;
 
-    Status: EDTOStatus;
+    Status!:  EDTOStatus;
 
 }
 
 export class DTOSaveImageData {
-    ImageId: string;
-    Filename: string;
-    ImageStringBase64: string
-    CalibrationInfo: DTOCalibrationInfo;
-    SWIPData: string;
+    ImageId!:  string;
+    Filename!:  string;
+    ImageStringBase64!:  string
+    CalibrationInfo!:  DTOCalibrationInfo;
+    SWIPData!:  string;
 }
 
 export class DTOCasePlanningInfo {
-    ProcedureName: string;
-    Comments: string;
-    SurgeryInfo: DTOSurgeryInfo;
-    CaseName: string; //patient name and date
-    CreatedBy: string; // as overlayes
-    PlanningDate: string; //simple string date time
-    PlanningDateUTC: string; //Date.UTC  toUTCString()
+    ProcedureName!:  string;
+    Comments!:  string;
+    SurgeryInfo!:  DTOSurgeryInfo;
+    CaseName!:  string; //patient name and date
+    CreatedBy!:  string; // as overlayes
+    PlanningDate!:  string; //simple string date time
+    PlanningDateUTC!:  string; //Date.UTC  toUTCString()
 }
 
 export class DTOImagePlanningInfo {
-    MeasurmentToolsInfo: DTOMeasurmentToolInfo[];
-    TemplatesInfo: DTOTemplateInfo[];
-    Side: EDTOAnatomicalSide;
+    MeasurmentToolsInfo!:  DTOMeasurmentToolInfo[];
+    TemplatesInfo!:  DTOTemplateInfo[];
+    Side!:  EDTOAnatomicalSide;
 }
 
 export class DTOSaveImageDataWithPlanningInfo extends DTOSaveImageData {
-    PlanningInfo: DTOImagePlanningInfo;
+    PlanningInfo!:  DTOImagePlanningInfo;
 }
 
 
 export class DTOSaveImageDataWithPlanningInfoAndOriginalImage extends DTOSaveImageData {
-    PlanningInfo: DTOImagePlanningInfo;
-    OriginalImageStringBase64: string;
+    PlanningInfo!:  DTOImagePlanningInfo;
+    OriginalImageStringBase64!:  string;
 }
 //DMF quentry recipient
 export class DTOSaveToQuentryRecipient {
-    RecipientSystemID: string;
+    RecipientSystemID:  any;
 
     constructor() {
         this.RecipientSystemID = null;
@@ -255,38 +255,38 @@ export class DTOSaveToQuentryRecipient {
 
 
 export class DTOSaveCaseDataWithPlanningInfo extends DTOSaveToQuentryRecipient {
-    CasePlanningInfo: DTOCasePlanningInfo;
-    SaveImagesDataWithPlanningInfo: DTOSaveImageDataWithPlanningInfo[];
-    PatientData: DTOPatientStudySaveData;
+    CasePlanningInfo!:  DTOCasePlanningInfo;
+    SaveImagesDataWithPlanningInfo!:  DTOSaveImageDataWithPlanningInfo[];
+    PatientData!:  DTOPatientStudySaveData;
 }
 
 
 export class DTOPatientStudySaveData {
-    PatientId: string; // attention two properies OatientId and PatientID
-    PatientLastName: string;
-    PatientFirstName: string;
-    PatientDOB: number;
-    Gender: string;
-    ReferingMD: string;
-    Accesion: string;
-    StudyDescription: string;
+    PatientId!:  string; // attention two properies OatientId and PatientID
+    PatientLastName!:  string;
+    PatientFirstName!:  string;
+    PatientDOB!:  number;
+    Gender!:  string;
+    ReferingMD!:  string;
+    Accesion!:  string;
+    StudyDescription!:  string;
 }
 
 export class DTOSaveCaseDataWithPlanningInfoAndPatientData extends DTOSaveCaseDataWithPlanningInfo {
 
-    PatientData: DTOPatientStudySaveData;
+    PatientData!:  DTOPatientStudySaveData;
 }
 
 export class DTOSaveCaseDataWithPlanningInfoAndPatientStudyData extends DTOSaveToQuentryRecipient {
-    CasePlanningInfo: DTOCasePlanningInfo;
-    SaveImagesDataWithPlanningInfoAndOriginalImage: DTOSaveImageDataWithPlanningInfoAndOriginalImage[];
-    PatientData: DTOPatientStudySaveData;
+    CasePlanningInfo!:  DTOCasePlanningInfo;
+    SaveImagesDataWithPlanningInfoAndOriginalImage!:  DTOSaveImageDataWithPlanningInfoAndOriginalImage[];
+    PatientData!:  DTOPatientStudySaveData;
 }
 export class DTOSurgeryInfo {
 
-    SurgeryDateTime: number;
-    SurgeryDateTimeUTC: string; //new Date.UTC() toUTCString();
-    SurgeryInsitution: string
+    SurgeryDateTime!:  number;
+    SurgeryDateTimeUTC!:  string; //new Date.UTC() toUTCString();
+    SurgeryInsitution!:  string
 }
 
 export class EDTOAnatomicalSide {
@@ -317,18 +317,18 @@ export class EDTOProcedure {
 }
 
 export class DTOTemplateInfo {
-    Manufacturer: string;
-    Classification: string; //stem cup etc.
-    Title: string;
-    PartNo: string;
-    Comments: string;
-    Quantity: number;
-    TemplateValues: KeyValuePair[];
+    Manufacturer!:  string;
+    Classification!:  string; //stem cup etc.
+    Title!:  string;
+    PartNo!:  string;
+    Comments!:  string;
+    Quantity!:  number;
+    TemplateValues!:  KeyValuePair[];
 }
 
 export class DTOMeasurmentToolInfo {
-    ToolName: string;
-    ToolValues: KeyValuePair[]
+    ToolName!:  string;
+    ToolValues!:  KeyValuePair[]
 }
 
 export class KeyValuePair {
@@ -341,46 +341,46 @@ export class KeyValuePair {
 }
 
 export class DTOAutoHipAsyncResult extends DTOAsyncResultBase {
-    Result: DTOAutoHipResult;
+    Result!:  DTOAutoHipResult;
 }
 
 export class DTOAutoKneeAsyncResult extends DTOAsyncResultBase {
-    Result: DTOAutoKneeResult;
+    Result!:  DTOAutoKneeResult;
 }
 
 
 export class DTOAutoDetectionBase {
-    IsLeftBodyPart: boolean;
-    EProcedureType: number;
-    IsAP: boolean;
+    IsLeftBodyPart!:  boolean;
+    EProcedureType!:  number;
+    IsAP!:  boolean;
 }
 
 
 
 export class DTOAutoHipResult extends DTOAutoDetectionBase {
-    SegmentPointsImageCoords: PointF[];
-    LldTool: DTOLldTool;
-    CupLocationDetailsRightSide: DTOCupLocationDetails;
-    CupLocationDetailsLeftSide: DTOCupLocationDetails;
-    StemLocationDetailsRightSide: DTOStemLocationDetails;
-    StemLocationDetailsLeftSide: DTOStemLocationDetails;
-    AutoHipDataRightSide: DTOAutoHipData;
-    AutoHipDataLeftSide: DTOAutoHipData;
+    SegmentPointsImageCoords!:  PointF[];
+    LldTool!:  DTOLldTool;
+    CupLocationDetailsRightSide!:  DTOCupLocationDetails;
+    CupLocationDetailsLeftSide!:  DTOCupLocationDetails;
+    StemLocationDetailsRightSide!:  DTOStemLocationDetails;
+    StemLocationDetailsLeftSide!:  DTOStemLocationDetails;
+    AutoHipDataRightSide!:  DTOAutoHipData;
+    AutoHipDataLeftSide!:  DTOAutoHipData;
     EProcedureType = EProcedureType.AutoHip;
     IsAp = true;
-    ResectionLine: PointF[]
+    ResectionLine!:  PointF[]
 }
 
 export class DTOAutoHipData {
-    MedialShaftLineY2XCoefficients: number[];
-    LateralShaftLineY2XCoefficients: number[];
-    MidShaftLineY2XRightSideCoefficients: number[];
-    AnatomicalLineP1: PointF;
-    AnatomicalLineP2: PointF;
-    UpperCenterPointFinderMedialPoint: PointF;
-    UpperCenterPointFinderLineLateralPoint: PointF;
-    LowerCenterPointFinderLineMedialPoint: PointF;
-    LowerCenterPointFinderLineLateralPoint: PointF;
+    MedialShaftLineY2XCoefficients!:  number[];
+    LateralShaftLineY2XCoefficients!:  number[];
+    MidShaftLineY2XRightSideCoefficients!:  number[];
+    AnatomicalLineP1!:  PointF;
+    AnatomicalLineP2!:  PointF;
+    UpperCenterPointFinderMedialPoint!:  PointF;
+    UpperCenterPointFinderLineLateralPoint!:  PointF;
+    LowerCenterPointFinderLineMedialPoint!:  PointF;
+    LowerCenterPointFinderLineLateralPoint!:  PointF;
 }
 
 export class DTOAutoKneeResult extends DTOAutoDetectionBase {
@@ -388,8 +388,8 @@ export class DTOAutoKneeResult extends DTOAutoDetectionBase {
 }
 
 export class DTOAutoKneeAPResult extends DTOAutoKneeResult {
-    FemorResectionLineTool: DTOAPResectionLineTool;
-    TibiaResectionLineTool: DTOAPResectionLineTool;
+    FemorResectionLineTool!:  DTOAPResectionLineTool;
+    TibiaResectionLineTool!:  DTOAPResectionLineTool;
 
     IsAP = true;
     EProcedureType = EProcedureType.AutoKnee;
@@ -397,41 +397,41 @@ export class DTOAutoKneeAPResult extends DTOAutoKneeResult {
 
 
 export class DTOAPResectionLineTool {
-    BoneAxis: DTOBoneAxisDetails;
-    Condyle: DTOAPKneeCondyleDetails;
+    BoneAxis!:  DTOBoneAxisDetails;
+    Condyle!:  DTOAPKneeCondyleDetails;
 }
 export class DTOBoneAxisDetails {
-    TopLeft: PointF;
-    TopRight: PointF;
-    BottomLeft: PointF;
-    BottomRight: PointF;
+    TopLeft!:  PointF;
+    TopRight!:  PointF;
+    BottomLeft!:  PointF;
+    BottomRight!:  PointF;
 }
 
 export class DTOAPKneeCondyleDetails {
-    TipLeft: PointF;
-    TipRight: PointF;
-    EdgeLeft: PointF;
-    EdgeRight: PointF;
+    TipLeft!:  PointF;
+    TipRight!:  PointF;
+    EdgeLeft!:  PointF;
+    EdgeRight!:  PointF;
 }
 
 export class DTOAutoKneeLatResult extends DTOAutoKneeResult {
-    FemurData: DTOKneeLATFemurData;
-    TibiaData: DTOKneeLATTibiaData;
+    FemurData!:  DTOKneeLATFemurData;
+    TibiaData!:  DTOKneeLATTibiaData;
     EProcedureType = EProcedureType.AutoKnee;
     IsAP = false;
 }
 
 export class DTOKneeLATFemurData {
-    AnteriorLinePnt: PointF;
-    PosteriorLineDistanceMM: number;
-    AnteriorLineDirection: PointF;
-    DistalLinePnt: PointF;
+    AnteriorLinePnt!:  PointF;
+    PosteriorLineDistanceMM!:  number;
+    AnteriorLineDirection!:  PointF;
+    DistalLinePnt!:  PointF;
 }
 
 export class DTOKneeLATTibiaData {
-    TibialPlateauCenter: PointF;
-    TibialPlateauWidth: number;
-    TibialSlopeDirection: PointF;
+    TibialPlateauCenter!:  PointF;
+    TibialPlateauWidth!:  number;
+    TibialSlopeDirection!:  PointF;
 }
 export class PointF {
     constructor(x: number, y: number) {
@@ -481,7 +481,7 @@ export class RectangleF {
 
     }
 
-    Union = function (r2: RectangleF) {
+    Union  (r2: RectangleF) {
         var l = Math.min(this.Left, r2.Left);
         var t = Math.min(this.Top, r2.Top);
         var r = Math.max(this.Right, r2.Right);
@@ -489,7 +489,7 @@ export class RectangleF {
         return new RectangleF(l, t, r - l, b - t);
     }
 
-    Intersect = function (r2: RectangleF) {
+    Intersect (r2: RectangleF) {
         var l = Math.max(this.Left, r2.Left);
         var t = Math.max(this.Top, r2.Top);
         var r = Math.min(this.Right, r2.Right);
@@ -497,7 +497,7 @@ export class RectangleF {
         return new RectangleF(l, t, Math.max(r - l, 0), Math.max(b - t, 0));
     }
 
-    Round = function () {
+    Round  () {
         var l = Math.round(this.Left);
         var t = Math.round(this.Top);
         var r = Math.round(this.Right);
@@ -505,7 +505,7 @@ export class RectangleF {
         return new RectangleF(l, t, r - l, b - t);
     }
 
-    Inflate = function (size: number) {
+    Inflate  (size: number) {
         var l = this.Left - size;
         var t = this.Top - size;
         var r = this.Right + size;
@@ -517,31 +517,31 @@ export class RectangleF {
 
 
 export class LinePoints {
-    StartPoint: PointF;
-    EndPoint: PointF;
-    CenterPoint: PointF;
+    StartPoint!:  PointF;
+    EndPoint!:  PointF;
+    CenterPoint!:  PointF;
 }
 
 
 export class DTOCupLocationDetails {
-    Location: PointF;
-    Angle: number;
-    Radius: number;
+    Location!:  PointF;
+    Angle!:  number;
+    Radius!:  number;
 }
 
 export class DTOStemLocationDetails {
-    Location: PointF;
-    Angle: number;
-    Width: number;
+    Location!:  PointF;
+    Angle!:  number;
+    Width!:  number;
 }
 
 export class DTOLldTool {
-    LeftIschialTuberosity: PointF;
-    RightIschialTuberosity: PointF;
-    LeftLesserTrochanter: PointF;
-    RightLesserTrochanter: PointF;
-    LeftTearDrop: PointF;
-    RightTearDrop: PointF;
+    LeftIschialTuberosity!:  PointF;
+    RightIschialTuberosity!:  PointF;
+    LeftLesserTrochanter!:  PointF;
+    RightLesserTrochanter!:  PointF;
+    LeftTearDrop!:  PointF;
+    RightTearDrop!:  PointF;
 }
 
 
@@ -549,51 +549,51 @@ export class DTOLldTool {
 
 export class DTOImageDownloadAsyncResult extends DTOAsyncResultBase {
 
-    Result: DTOImageDownloadResult;
+    Result!:  DTOImageDownloadResult;
 }
 
 export class DTOImageDownloadResult {
-    DownloadedImages: DTODicomImageData[];
-    TotalImagesToDownload: number;
-    NumberOfDownloadedImages: number;
+    DownloadedImages!:  DTODicomImageData[];
+    TotalImagesToDownload!:  number;
+    NumberOfDownloadedImages!:  number;
 }
 
 export class DTODicomImageData {
     DicomContent: any;
     Additionaldata: any;
-    ImageKey: string;
-    StudyUID: string;
-    SeriesUID: string;
-    InstanceUID: string;
-    InstanceIdentifier: string;
-    ImageWidth: number;
-    ImageHeight: number;
-    BaseWLWindow: number;
-    BaseWLLevel: number;
+    ImageKey!:  string;
+    StudyUID!:  string;
+    SeriesUID!:  string;
+    InstanceUID!:  string;
+    InstanceIdentifier!:  string;
+    ImageWidth!:  number;
+    ImageHeight!:  number;
+    BaseWLWindow!:  number;
+    BaseWLLevel!:  number;
 }
 
 //2.
 export class DTOThumbnailImageDataAsyncResult extends DTOAsyncResultBase {
-    Result: DTOThumbnailImageData[];
+    Result!:  DTOThumbnailImageData[];
 }
 
 export class DTOThumbnailDownloadResultAsyncResult extends DTOAsyncResultBase {
-    Result: DTOThumbnailDownloadResult;
+    Result!:  DTOThumbnailDownloadResult;
 }
 
 export class DTOThumbnailDownloadResult {
 
-    ThumbnailImages: DTOThumbnailImageData[];
+    ThumbnailImages!:  DTOThumbnailImageData[];
 
 
 }
 
 export class DTOThumbnailImageData {
-    ImageStringBase64: string;
-    StudyUID: string;
-    SeriesUID: string;
-    InstanceUID: string;
-    InstanceVoyantID: string;
+    ImageStringBase64!:  string;
+    StudyUID!:  string;
+    SeriesUID!:  string;
+    InstanceUID!:  string;
+    InstanceVoyantID!:  string;
 
     static ConvertToDTOThumbnails(thumbnails: DTOThumbnailImageData[]) {
         var result = new Array<DTOThumbnail>();
